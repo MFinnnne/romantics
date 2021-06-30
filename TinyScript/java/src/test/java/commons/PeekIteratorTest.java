@@ -25,4 +25,29 @@ class PeekIteratorTest {
         assertEquals('f', it.next());
         assertEquals('g', it.next());
     }
+
+    @Test
+    public void testLookAhead() {
+        var source = "abcdefg";
+        var it = new PeekIterator<Character>(source.chars().mapToObj(c -> (char) c));
+        assertEquals('a', it.next());
+        assertEquals('b', it.next());
+        it.putBack();
+        it.putBack();
+        assertEquals('a', it.next());
+    }
+
+    @Test
+    public void testEndToken() {
+        var source = "abcdefg";
+        var it = new PeekIterator<Character>(source.chars().mapToObj(c -> (char) c));
+        var i = 0;
+        while (it.hasNext()) {
+            if (i == 7) {
+                assertEquals((char) 0, it.next());
+            } else {
+                assertEquals(source.charAt(i++), it.next());
+            }
+        }
+    }
 }
