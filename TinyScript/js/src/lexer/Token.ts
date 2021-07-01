@@ -8,9 +8,9 @@ import TokenType from './TokenType';
  * @Description:
  */
 export default class Token {
-	_type: TokenType = null;
-	_value: string = null;
-	constructor(type, value) {
+	private _type: TokenType | null = null;
+	private _value: string | null = null;
+	constructor(type: TokenType, value: string) {
 		this._type = type;
 		this._value = value;
 	}

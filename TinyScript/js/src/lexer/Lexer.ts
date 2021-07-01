@@ -6,9 +6,7 @@
  * @Description: 
  */
 class Lexer {
-  constructor(parameters) {
-    
-  }
+
 
   analyse(){
     return null
