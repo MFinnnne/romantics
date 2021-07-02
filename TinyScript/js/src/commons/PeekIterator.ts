@@ -6,51 +6,57 @@ import LinkedList from 'ts-linked-list'
  * @LastEditors: MFine
  * @Description:
  */
-export default class PeekIterator<T>{
-	private it: Iterator<T> | null = null
-	private stackPutBacks: LinkedList<T> = new LinkedList()
-	private queueCache: LinkedList<T> = new LinkedList()
-	readonly CACHE_SIZE: number = 10
-	private endToken: T | null = null
+export default class PeekIterator<T> {
+    private it: Iterator<T> | null = null
+    private stackPutBacks: LinkedList<T> = new LinkedList()
+    private queueCache: LinkedList<T> = new LinkedList()
+    readonly CACHE_SIZE: number = 10
+    private endToken: T | null = null
 
-	constructor(it: Iterator<T>, endToken?: T) {
-		this.it = it
-		this.endToken = endToken ?? null
-	}
+    constructor(it: Iterator<T>, endToken?: T) {
+        this.it = it
+        this.endToken = endToken ?? null
+    }
 
-	peek() {
-		if (this.stackPutBacks.length > 0) {
-			return this.stackPutBacks.get(0)
-		}
-		if (!this.hasNext()) {
-			return this.endToken
-		}
-		const next: T = this.it?.next().value
-		this.putBack()
-		return next
-	}
+    peek() {
+        if (this.stackPutBacks.length > 0) {
+            return this.stackPutBacks.tail
+        }
+        const next: T = this.next();
+        this.putBack()
+        return next
+    }
 
-	putBack() {
-		const val: T | undefined = this.queueCache.pop()
-		val && this.stackPutBacks.push(val)
-	}
+    private putBack() {
+        const val: T | undefined = this.queueCache.pop()
+        val && this.stackPutBacks.append(val)
+    }
 
-	hasNext(): boolean {
-		return this.endToken !== null || !!this.peek()
-	}
+    hasNext(): boolean {
+        return this.endToken !== null || !!this.peek()
+    }
 
 
-	next(): T | undefined {
-		let val: T | undefined
-		if (this.stackPutBacks.length > 0) {
-			val = this.stackPutBacks.pop()
-		} else {
-			val = this.it?.next().value
-		}
-		if (this.queueCache.length > this.CACHE_SIZE - 1) {
-			this.queueCache.shift()
-		}
-		val && this.queueCache.append(val)
-		return val
-	}
+    next(): T {
+        let val: T | undefined
+        if (this.stackPutBacks.length > 0) {
+            val = this.stackPutBacks.pop()
+        } else {
+            val = this.it?.next().value
+            if (!val && this.endToken) {
+                const tmp: T = this.endToken
+                this.endToken = null
+                return tmp
+
+            }
+        }
+        if (this.queueCache.length > this.CACHE_SIZE - 1) {
+            this.queueCache.shift()
+        }
+        if (!val) {
+            throw new Error("token can not undefined")
+        }
+        this.queueCache.append(val)
+        return val
+    }
 }

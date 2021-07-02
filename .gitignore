@@ -1,3 +1,5 @@
 TinyScript/js/node_modules
-TinyScript/js/src/js
+TinyScript/js/converage
 TinyScript/js/yarn.lock
+TinyScript/js/target
+TinyScript/js/.vscode
