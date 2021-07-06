@@ -2,7 +2,13 @@ lexer/TokenType.java
  lexer.TokenType
 lexer/Lexer.java
  lexer.Lexer
-lexer/Token.java
- lexer.Token
+lexer/LexicalException.java
+ lexer.LexicalException
 commons/PeekIterator.java
  commons.PeekIterator
+lexer/Token.java
+ lexer.Token
+lexer/KeyWords.java
+ lexer.KeyWords
+commons/AlphabetHelper.java
+ commons.AlphabetHelper

@@ -1,34 +1,64 @@
 package lexer;
 
+import commons.AlphabetHelper;
+import commons.PeekIterator;
+
 /**
  * @author MFine
  * @version 1.0
  * @date 2021/6/29 0:38
  **/
 public class Token {
-    TokenType _type;
-    String _value;
+    private TokenType type;
+    private String value;
+
+    public String getValue() {
+        return value;
+    }
+
+
 
     public Token(TokenType type, String value) {
-        this._type = type;
-        this._value = value;
+        this.type = type;
+        this.value = value;
     }
 
     public TokenType getType() {
-        return _type;
+        return type;
     }
 
     @Override
     public String toString() {
-        return String.format("type %s,value %s", _type, _value);
+        return String.format("type %s,value %s", type, value);
     }
 
     public boolean isVariable() {
-        return _type == TokenType.VARIABLE;
+        return type == TokenType.VARIABLE;
     }
 
     public boolean isScalar() {
-        return _type == TokenType.FLOAT || _type == TokenType.INTEGER
-                || _type == TokenType.STRING || _type == TokenType.BOOLEAN;
+        return type == TokenType.FLOAT || type == TokenType.INTEGER
+                || type == TokenType.STRING || type == TokenType.BOOLEAN;
+    }
+
+    public static Token makeVarOrKeyword(PeekIterator<Character> it) {
+
+        String s = "";
+        while (it.hasNext()) {
+            var lookahead = it.peek();
+            if (AlphabetHelper.isLiteral(lookahead)) {
+                s += lookahead;
+            } else {
+                break;
+            }
+            it.next();
+        }
+        if (KeyWords.isKeyword(s)) {
+            return new Token(TokenType.KEYWORD, s);
+        }
+        if (s.equals("true") || s.equals("false")) {
+            return new Token(TokenType.BOOLEAN, s);
+        }
+        return new Token(TokenType.VARIABLE, s);
     }
 }

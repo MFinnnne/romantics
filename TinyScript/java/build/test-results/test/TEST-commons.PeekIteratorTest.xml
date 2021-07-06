@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="commons.PeekIteratorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-06-30T16:21:13" hostname="DESKTOP-AS741T7" time="0.029">
-  <properties/>
-  <testcase name="testEndToken()" classname="commons.PeekIteratorTest" time="0.026"/>
-  <testcase name="test_peek()" classname="commons.PeekIteratorTest" time="0.001"/>
-  <testcase name="testLookAhead()" classname="commons.PeekIteratorTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
