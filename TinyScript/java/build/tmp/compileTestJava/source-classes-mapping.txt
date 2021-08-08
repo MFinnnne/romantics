@@ -1,6 +1,6 @@
-commons/PeekIteratorTest.java
- commons.PeekIteratorTest
 commons/AlphabetHelperTest.java
  commons.AlphabetHelperTest
 lexer/TokenTest.java
  lexer.TokenTest
+commons/PeekIteratorTest.java
+ commons.PeekIteratorTest

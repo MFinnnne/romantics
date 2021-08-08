@@ -9,13 +9,12 @@ import commons.PeekIterator;
  * @date 2021/6/29 0:38
  **/
 public class Token {
-    private TokenType type;
-    private String value;
+    private final TokenType type;
+    private final String value;
 
     public String getValue() {
         return value;
     }
-
 
 
     public Token(TokenType type, String value) {
@@ -60,5 +59,39 @@ public class Token {
             return new Token(TokenType.BOOLEAN, s);
         }
         return new Token(TokenType.VARIABLE, s);
+    }
+
+    public static Token makeString(PeekIterator<Character> it) throws LexicalException {
+        StringBuilder s = new StringBuilder();
+        int state = 0;
+        while (it.hasNext()) {
+            char c = it.next();
+            switch (state) {
+                case 0:
+                    if (c == '\'') {
+                        state = 1;
+                    }
+                    if (c == '\"') {
+                        state = 2;
+                    }
+                    break;
+                case 1:
+                    if (c == '\'') {
+                        return new Token(TokenType.STRING, s.toString());
+                    } else {
+                        s.append(c);
+                    }
+                    break;
+                case 2:
+                    if (c == '"') {
+                        return new Token(TokenType.STRING, s.toString());
+                    }
+                    s.append(c);
+                    break;
+                default:
+                    break;
+            }
+        }
+        throw new LexicalException("unexpected error");
     }
 }

@@ -1,7 +1,14 @@
 package lexer;
 
 import commons.PeekIterator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,24 +21,38 @@ class TokenTest {
 
     @Test
     public void testVarOrKeyword() {
-        var it1 = new PeekIterator<Character>("if abc".chars().mapToObj(x -> (char) x));
-        var it2 = new PeekIterator<Character>("true abc".chars().mapToObj(x -> (char) x));
+        var it1 = new PeekIterator<>("if abc".chars().mapToObj(x -> (char) x));
+        var it2 = new PeekIterator<>("true abc".chars().mapToObj(x -> (char) x));
         Token token1 = Token.makeVarOrKeyword(it1);
 
         Token token2 = Token.makeVarOrKeyword(it2);
 
-        assertEquals(token1.getType(),TokenType.KEYWORD);
-        assertEquals(token1.getValue(),"if");
-        assertEquals(token2.getType(),TokenType.BOOLEAN);
-        assertEquals(token2.getValue(),"true");
+        assertEquals(token1.getType(), TokenType.KEYWORD);
+        assertEquals(token1.getValue(), "if");
+        assertEquals(token2.getType(), TokenType.BOOLEAN);
+        assertEquals(token2.getValue(), "true");
 
 
-        var it3 = new PeekIterator<Character>("abc".chars().mapToObj(x -> (char) x));
+        var it3 = new PeekIterator<>("abc".chars().mapToObj(x -> (char) x));
 
         Token token3 = Token.makeVarOrKeyword(it3);
-        assertEquals(token3.getType(),TokenType.VARIABLE);
-        assertEquals(token3.getValue(),"abc");
+        assertEquals(token3.getType(), TokenType.VARIABLE);
+        assertEquals(token3.getValue(), "abc");
 
+    }
+
+    @Test
+    public void makeString() throws LexicalException {
+        String[] tests = {
+                "\"123\"",
+                "'123'",
+        };
+
+        List<PeekIterator<Character>> collect = Stream.of(tests).map((item -> new PeekIterator<>(item.chars().mapToObj(x -> (char) x)))).collect(Collectors.toList());
+        for (PeekIterator<Character> characterPeekIterator : collect) {
+            Token token = Token.makeString(characterPeekIterator);
+            Assertions.assertEquals(token.getValue(),"123");
+        }
     }
 
 }

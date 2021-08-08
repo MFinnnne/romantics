@@ -13,7 +13,7 @@ public class PeekIterator<T> implements Iterator<T> {
 
     private static final int CACHE_SIZE = 10;
 
-    private Iterator<T> it;
+    private final Iterator<T> it;
 
     private final LinkedList<T> queueCache = new LinkedList<>();
     private final LinkedList<T> stackPutBacks = new LinkedList<>();
@@ -23,6 +23,7 @@ public class PeekIterator<T> implements Iterator<T> {
     public PeekIterator(Stream<T> stream) {
         it = stream.iterator();
     }
+
     public PeekIterator(Stream<T> stream, T endToken) {
         it = stream.iterator();
         this.endToken = endToken;
@@ -41,7 +42,7 @@ public class PeekIterator<T> implements Iterator<T> {
     }
 
     // 缓存：A->B->C->D
-    // 放回： D->C->B->A
+    // 放回：D->C->B->A
 
     public void putBack() {
         this.stackPutBacks.push(this.queueCache.pollLast());

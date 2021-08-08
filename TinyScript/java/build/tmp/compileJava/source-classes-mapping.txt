@@ -4,11 +4,11 @@ lexer/Lexer.java
  lexer.Lexer
 lexer/LexicalException.java
  lexer.LexicalException
+commons/AlphabetHelper.java
+ commons.AlphabetHelper
+lexer/KeyWords.java
+ lexer.KeyWords
 commons/PeekIterator.java
  commons.PeekIterator
 lexer/Token.java
  lexer.Token
-lexer/KeyWords.java
- lexer.KeyWords
-commons/AlphabetHelper.java
- commons.AlphabetHelper
