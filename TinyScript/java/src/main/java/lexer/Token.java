@@ -94,4 +94,153 @@ public class Token {
         }
         throw new LexicalException("unexpected error");
     }
+
+    public static Token makeOp(PeekIterator<Character> it) throws LexicalException {
+        int state = 0;
+        while (it.hasNext()) {
+            Character lookahead = it.next();
+            switch (state) {
+                case 0:
+                    switch (lookahead) {
+                        case '+':
+                            state = 1;
+                            break;
+                        case '-':
+                            state = 2;
+                            break;
+                        case '*':
+                            state = 3;
+                            break;
+                        case '/':
+                            state = 4;
+                            break;
+                        case '>':
+                            state = 5;
+                            break;
+                        case '<':
+                            state = 6;
+                            break;
+                        case '=':
+                            state = 7;
+                            break;
+                        case '!':
+                            state = 8;
+                            break;
+                        case '&':
+                            state = 9;
+                            break;
+                        case '|':
+                            state = 10;
+                            break;
+                        case '^':
+                            state = 11;
+                            break;
+                        case '%':
+                            state = 12;
+                            break;
+                        default:
+                            break;
+                    }
+                case 1:
+                    switch (lookahead) {
+                        case '+':
+                            return new Token(TokenType.OPERATOR, "++");
+                        case '=':
+                            return new Token(TokenType.OPERATOR, "+=");
+                        default:
+                            it.putBack();
+                            return new Token(TokenType.OPERATOR, "+");
+                    }
+                case 2:
+                    switch (lookahead) {
+                        case '+':
+                            return new Token(TokenType.OPERATOR, "--");
+                        case '=':
+                            return new Token(TokenType.OPERATOR, "-=");
+                        default:
+                            it.putBack();
+                            return new Token(TokenType.OPERATOR, "-");
+                    }
+                case 3:
+                    if (lookahead == '=') {
+                        return new Token(TokenType.OPERATOR, "*=");
+                    }
+                    it.putBack();
+                    return new Token(TokenType.OPERATOR, "*");
+                case 4:
+                    if (lookahead == '=') {
+                        return new Token(TokenType.OPERATOR, "/=");
+                    }
+                    it.putBack();
+                    return new Token(TokenType.OPERATOR, "/");
+                case 5:
+                    switch (lookahead) {
+                        case '>':
+                            return new Token(TokenType.OPERATOR, ">>");
+                        case '=':
+                            return new Token(TokenType.OPERATOR, ">=");
+                        default:
+                            it.putBack();
+                            return new Token(TokenType.OPERATOR, ">");
+                    }
+                case 6:
+                    switch (lookahead) {
+                        case '>':
+                            return new Token(TokenType.OPERATOR, "<<");
+                        case '=':
+                            return new Token(TokenType.OPERATOR, "<=");
+                        default:
+                            it.putBack();
+                            return new Token(TokenType.OPERATOR, "<");
+                    }
+                case 7:
+                    if (lookahead == '=') {
+                        return new Token(TokenType.OPERATOR, "==");
+                    }
+                    it.putBack();
+                    return new Token(TokenType.OPERATOR, "=");
+                case 8:
+                    if (lookahead == '=') {
+                        return new Token(TokenType.OPERATOR, "!=");
+                    }
+                    it.putBack();
+                    return new Token(TokenType.OPERATOR, "!");
+                case 9:
+                    switch (lookahead) {
+                        case '=':
+                            return new Token(TokenType.OPERATOR, "&=");
+                        case '&':
+                            return new Token(TokenType.OPERATOR, "&&");
+                        default:
+                            it.putBack();
+                            return new Token(TokenType.OPERATOR, "&");
+                    }
+                case 10:
+                    switch (lookahead) {
+                        case '=':
+                            return new Token(TokenType.OPERATOR, "|=");
+                        case '|':
+                            return new Token(TokenType.OPERATOR, "||");
+                        default:
+                            it.putBack();
+                            return new Token(TokenType.OPERATOR, "|");
+                    }
+                case 11:
+                    if (lookahead == '=') {
+                        return new Token(TokenType.OPERATOR, "^=");
+                    }
+                    it.putBack();
+                    return new Token(TokenType.OPERATOR, "^");
+                case 12:
+                    if (lookahead == '=') {
+                        return new Token(TokenType.OPERATOR, "%=");
+                    }
+                    it.putBack();
+                    return new Token(TokenType.OPERATOR, "%");
+                default:
+                    break;
+            }
+        }
+        throw new LexicalException("unexpected error");
+    }
 }
