@@ -51,7 +51,34 @@ class TokenTest {
         List<PeekIterator<Character>> collect = Stream.of(tests).map((item -> new PeekIterator<>(item.chars().mapToObj(x -> (char) x)))).collect(Collectors.toList());
         for (PeekIterator<Character> characterPeekIterator : collect) {
             Token token = Token.makeString(characterPeekIterator);
-            Assertions.assertEquals(token.getValue(),"123");
+            Assertions.assertEquals(token.getValue(), "123");
+        }
+    }
+
+    @Test
+    public void testMakeOp() throws LexicalException {
+        String[] tests = {
+                "+ xx",
+                "++mm",
+                "- xx",
+                "--mm",
+                "/=g",
+                "= 1",
+                "==sad",
+                "&=sada",
+                "&yy",
+                "||xxs",
+                "^=11",
+                "%7"
+
+        };
+        int i = 0;
+        String[] results = {"+", "++", "-", "--", "/=", "=", "==", "&=", "&", "||", "^=", "%"};
+        for (String test : tests) {
+            PeekIterator<Character> iterator = new PeekIterator<>(test.chars().mapToObj(x -> (char) x));
+            Token token = Token.makeOp(iterator);
+            Assertions.assertEquals(token.getValue(),results[i++]);
+            Assertions.assertEquals(token.getType(),TokenType.OPERATOR);
         }
     }
 

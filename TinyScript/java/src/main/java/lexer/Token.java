@@ -141,6 +141,7 @@ public class Token {
                         default:
                             break;
                     }
+                    break;
                 case 1:
                     switch (lookahead) {
                         case '+':
@@ -153,7 +154,7 @@ public class Token {
                     }
                 case 2:
                     switch (lookahead) {
-                        case '+':
+                        case '-':
                             return new Token(TokenType.OPERATOR, "--");
                         case '=':
                             return new Token(TokenType.OPERATOR, "-=");
