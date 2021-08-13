@@ -3,6 +3,8 @@ package lexer;
 import commons.AlphabetHelper;
 import commons.PeekIterator;
 
+import java.security.AllPermission;
+
 /**
  * @author MFine
  * @version 1.0
@@ -244,4 +246,90 @@ public class Token {
         }
         throw new LexicalException("unexpected error");
     }
+
+    public static Token makeNumber(PeekIterator<Character> it) throws LexicalException {
+        int state = 0;
+        StringBuilder res = new StringBuilder();
+        while (it.hasNext()) {
+            Character lookahead = it.peek();
+            switch (state) {
+                case 0:
+                    if (lookahead == '0') {
+                        state = 1;
+                    } else if (AlphabetHelper.isNumber(lookahead)) {
+                        state = 2;
+                    } else if (lookahead == '-' || lookahead == '+') {
+                        state = 3;
+                    } else if (lookahead == '.') {
+                        res.append('.');
+                        state = 5;
+                    }
+                    break;
+                case 1:
+                    if (lookahead == '0') {
+                        state = 1;
+                    } else if (AlphabetHelper.isNumber(lookahead)) {
+                        if ("0".equals(res.toString())) {
+                            res = new StringBuilder();
+                        }
+                        state = 2;
+                    } else if (lookahead == '.') {
+                        state = 4;
+                    } else {
+                        return new Token(TokenType.INTEGER, "0");
+                    }
+                    break;
+                case 2:
+                    if (AlphabetHelper.isNumber(lookahead)) {
+                        state = 2;
+                    } else if (lookahead == '.') {
+                        state = 4;
+                    } else {
+                        return new Token(TokenType.INTEGER, res.toString());
+                    }
+                    break;
+                case 3:
+                    if (AlphabetHelper.isNumber(lookahead)) {
+                        state = 2;
+                    } else if (lookahead == '.') {
+                        state = 5;
+                    } else {
+                        throw new LexicalException("unexpected token:" + lookahead);
+                    }
+                    break;
+                case 4:
+                    if (lookahead == '.') {
+                        throw new LexicalException("unexpected token:" + lookahead);
+                    } else if (AlphabetHelper.isNumber(lookahead)) {
+                        state = 6;
+                    } else {
+                        return new Token(TokenType.FLOAT, res.toString());
+                    }
+                    break;
+                case 5:
+                    if (AlphabetHelper.isNumber(lookahead)) {
+                        state = 6;
+                    } else {
+                        return new Token(TokenType.FLOAT, res.toString());
+                    }
+                    break;
+                case 6:
+                    if (AlphabetHelper.isNumber(lookahead)) {
+                        state = 6;
+                    } else if (lookahead == '.') {
+                        throw new LexicalException("unexpected token:" + lookahead);
+                    } else {
+                        return new Token(TokenType.FLOAT, res.toString());
+                    }
+                    break;
+                default:
+                    break;
+            }
+            it.next();
+            res.append(lookahead);
+
+        }
+        throw new LexicalException("unexpected error");
+    }
+
 }

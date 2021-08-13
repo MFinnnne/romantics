@@ -18,9 +18,9 @@ export default class PeekIterator<T> {
         this.endToken = endToken ?? null
     }
 
-    peek() {
+    peek():T | undefined {
         if (this.stackPutBacks.length > 0) {
-            return this.stackPutBacks.tail
+            return this.stackPutBacks.tail?.data
         }
         const next: T = this.next();
         this.putBack()

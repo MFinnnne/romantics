@@ -75,11 +75,32 @@ class TokenTest {
         int i = 0;
         String[] results = {"+", "++", "-", "--", "/=", "=", "==", "&=", "&", "||", "^=", "%"};
         for (String test : tests) {
-            PeekIterator<Character> iterator = new PeekIterator<>(test.chars().mapToObj(x -> (char) x));
+            PeekIterator<Character> iterator = new PeekIterator<>(test.chars().mapToObj(x -> (char) x), (char) 0);
             Token token = Token.makeOp(iterator);
-            Assertions.assertEquals(token.getValue(),results[i++]);
-            Assertions.assertEquals(token.getType(),TokenType.OPERATOR);
+            Assertions.assertEquals(token.getValue(), results[i++]);
+            Assertions.assertEquals(token.getType(), TokenType.OPERATOR);
         }
     }
 
+    @Test
+    void testMakeNumber() throws LexicalException {
+        String[] tests = {
+                "0000xx",
+                "0.21d1",
+                "021dew",
+                "2.11sd",
+                "21sa",
+                "-1xx",
+                "+1a",
+                "1231.1231x"
+        };
+        String[] results = {"0", "0.21", "21", "2.11", "21", "-1", "+1", "1231.1231"};
+        int i = 0;
+        for (String test : tests) {
+            PeekIterator<Character> iterator = new PeekIterator<>(test.chars().mapToObj(x -> (char) x), (char) 0);
+            Token token = Token.makeNumber(iterator);
+            Assertions.assertEquals(token.getValue(), results[i++]);
+
+        }
+    }
 }
