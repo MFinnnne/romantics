@@ -6,21 +6,22 @@
  * @Description:
  */
 enum TokenType {
-	// 关键字
-	KEYWORD,
-	// 变量
-	VARIABLE,
-	// 操作符
-	OPERATOR,
-	// 括号
-	BRACKET,
-	// 整型
-	INTEGER,
-	// 浮点数
-	FLOAT,
-	// 布尔型
-	BOOLEAN,
-	// 字符串
-	STRING,
+    // 关键字
+    KEYWORD = 0,
+    // 变量
+    VARIABLE = 1,
+    // 操作符
+    OPERATOR = 2,
+    // 括号
+    BRACKET = 3,
+    // 整型
+    INTEGER = 4,
+    // 浮点数
+    FLOAT = 5,
+    // 布尔型
+    BOOLEAN = 6,
+    // 字符串
+    STRING = 7,
 }
+
 export default TokenType;

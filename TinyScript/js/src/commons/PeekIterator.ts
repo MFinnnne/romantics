@@ -18,16 +18,17 @@ export default class PeekIterator<T> {
         this.endToken = endToken ?? null
     }
 
-    peek():T | undefined {
-        if (this.stackPutBacks.length > 0) {
-            return this.stackPutBacks.tail?.data
+    peek():T {
+        if (this.stackPutBacks.length > 0 &&this.stackPutBacks.tail) {
+            return this.stackPutBacks.tail.data
         }
         const next: T = this.next();
         this.putBack()
         return next
     }
 
-    private putBack() {
+
+    public putBack() {
         const val: T | undefined = this.queueCache.pop()
         val && this.stackPutBacks.append(val)
     }
@@ -47,7 +48,6 @@ export default class PeekIterator<T> {
                 const tmp: T = this.endToken
                 this.endToken = null
                 return tmp
-
             }
         }
         if (this.queueCache.length > this.CACHE_SIZE - 1) {

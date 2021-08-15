@@ -1,4 +1,4 @@
-class AlphabetHelper {
+export default class AlphabetHelper {
 
     private static ptnLetter: RegExp = /^[a-zA-Z]$/
     private static ptnNumber: RegExp = /^[0-9]$/

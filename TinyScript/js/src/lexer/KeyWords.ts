@@ -1,4 +1,4 @@
-class KeyWords {
+export  default  class KeyWords {
     private static keywords: string[] = [
         "var",
         "if",
@@ -10,5 +10,10 @@ class KeyWords {
         "return",
     ]
 
-    private static set = new Set();
+
+    private static set = new Set(KeyWords.keywords);
+
+    public static isKeyWords(c: string): boolean {
+        return KeyWords.set.has(c);
+    }
 }
