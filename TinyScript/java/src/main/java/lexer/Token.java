@@ -332,4 +332,11 @@ public class Token {
         throw new LexicalException("unexpected error");
     }
 
+    public boolean isNumber() {
+        return this.getType()==TokenType.FLOAT||this.getType()==TokenType.INTEGER;
+    }
+
+    public boolean isOperator() {
+        return this.getType()==TokenType.OPERATOR;
+    }
 }

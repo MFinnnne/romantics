@@ -2,5 +2,7 @@ commons/AlphabetHelperTest.java
  commons.AlphabetHelperTest
 commons/PeekIteratorTest.java
  commons.PeekIteratorTest
+lexer/LexerTests.java
+ lexer.LexerTests
 lexer/TokenTest.java
  lexer.TokenTest

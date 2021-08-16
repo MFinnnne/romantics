@@ -6,9 +6,9 @@ lexer/LexicalException.java
  lexer.LexicalException
 commons/AlphabetHelper.java
  commons.AlphabetHelper
-lexer/Lexer.java
- lexer.Lexer
-lexer/KeyWords.java
- lexer.KeyWords
 lexer/Token.java
  lexer.Token
+lexer/KeyWords.java
+ lexer.KeyWords
+lexer/Lexer.java
+ lexer.Lexer
