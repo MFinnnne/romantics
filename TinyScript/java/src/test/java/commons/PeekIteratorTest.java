@@ -1,5 +1,6 @@
 package commons;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,11 +41,11 @@ class PeekIteratorTest {
     @Test
     public void testEndToken() {
         var source = "abcdefg";
-        var it = new PeekIterator<>(source.chars().mapToObj(c -> (char) c));
+        var it = new PeekIterator<>(source.chars().mapToObj(c -> (char) c),(char)0);
         var i = 0;
         while (it.hasNext()) {
             if (i == 7) {
-                assertEquals((char) 0, it.next());
+                Assertions.assertEquals((char) 0, it.next());
             } else {
                 assertEquals(source.charAt(i++), it.next());
             }
