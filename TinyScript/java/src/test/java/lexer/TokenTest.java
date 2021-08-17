@@ -19,6 +19,11 @@ import static org.junit.jupiter.api.Assertions.*;
  **/
 class TokenTest {
 
+    void assertToken(Token token, String value, TokenType type) {
+        Assertions.assertEquals(value, token.getValue());
+        Assertions.assertEquals(type, token.getType());
+    }
+
     @Test
     public void testVarOrKeyword() {
         var it1 = new PeekIterator<>("if abc".chars().mapToObj(x -> (char) x));

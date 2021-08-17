@@ -32,10 +32,10 @@ public class Lexer {
 
             if (next == '"' || next == '\'') {
                 iterator.putBack();
-                tokens.add(Token.makeVarOrKeyword(iterator));
+                tokens.add(Token.makeString(iterator));
             }
 
-            if (AlphabetHelper.isLiteral(next)) {
+            if (AlphabetHelper.isLetter(next)) {
                 iterator.putBack();
                 tokens.add(Token.makeVarOrKeyword(iterator));
                 continue;
@@ -44,10 +44,11 @@ public class Lexer {
             if (AlphabetHelper.isNumber(next)) {
                 iterator.putBack();
                 tokens.add(Token.makeNumber(iterator));
+                continue;
             }
             if ((next == '+' || next == '-' || next == '.') && AlphabetHelper.isNumber(lookahead)) {
                 Token token = tokens.size() == 0 ? null : tokens.get(tokens.size() - 1);
-                if (token == null || token.isNumber() || token.isOperator()) {
+                if (token == null || !token.isNumber() || token.isOperator()) {
                     iterator.putBack();
                     tokens.add(Token.makeNumber(iterator));
                     continue;

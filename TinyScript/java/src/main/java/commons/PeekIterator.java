@@ -50,16 +50,16 @@ public class PeekIterator<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        return this.endToken != null || this.stackPutBacks.size() > 0 || it.hasNext();
+        return this.endToken != null || this.stackPutBacks.isEmpty()|| it.hasNext();
     }
 
     @Override
     public T next() {
         T val = null;
-        if (this.stackPutBacks.size() > 0) {
+        if (!this.stackPutBacks.isEmpty()) {
             val = this.stackPutBacks.pop();
         } else {
-            if (!this.hasNext()) {
+            if (!this.it.hasNext()) {
                 T tmp = this.endToken;
                 this.endToken = null;
                 return tmp;
