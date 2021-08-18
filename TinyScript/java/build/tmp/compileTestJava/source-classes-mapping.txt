@@ -1,8 +1,8 @@
 commons/AlphabetHelperTest.java
  commons.AlphabetHelperTest
-lexer/LexerTests.java
- lexer.LexerTests
-lexer/TokenTest.java
- lexer.TokenTest
 commons/PeekIteratorTest.java
  commons.PeekIteratorTest
+lexer/TokenTest.java
+ lexer.TokenTest
+lexer/LexerTests.java
+ lexer.LexerTests

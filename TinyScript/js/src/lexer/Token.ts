@@ -334,4 +334,12 @@ export default class Token {
     toString() {
         return `type ${this._type},value ${this._value}`;
     }
+
+    isNumber() {
+        return this._type === TokenType.FLOAT || this._type === TokenType.INTEGER;
+    }
+
+    isOperator() {
+        return this._type === TokenType.OPERATOR;
+    }
 }
