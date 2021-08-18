@@ -140,6 +140,10 @@ public class Token {
                         case '%':
                             state = 12;
                             break;
+                        case ',':
+                            return new Token(TokenType.OPERATOR, ",");
+                        case ';':
+                            return new Token(TokenType.OPERATOR,  ";");
                         default:
                             break;
                     }

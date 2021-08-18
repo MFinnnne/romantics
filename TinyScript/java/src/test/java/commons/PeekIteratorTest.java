@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  **/
 class PeekIteratorTest {
     @Test
-    public void test_peek() {
+    void test_peek() {
         var source = "abcdefg";
         var it = new PeekIterator<>(source.chars().mapToObj(c -> (char) c));
 
@@ -28,7 +28,7 @@ class PeekIteratorTest {
     }
 
     @Test
-    public void testLookAhead() {
+    void testLookAhead() {
         var source = "abcdefg";
         var it = new PeekIterator<>(source.chars().mapToObj(c -> (char) c));
         assertEquals('a', it.next());
@@ -39,7 +39,7 @@ class PeekIteratorTest {
     }
 
     @Test
-    public void testEndToken() {
+    void testEndToken() {
         var source = "abcdefg";
         var it = new PeekIterator<>(source.chars().mapToObj(c -> (char) c),(char)0);
         var i = 0;

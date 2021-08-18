@@ -25,6 +25,29 @@ public class Lexer {
             if (next == ' ' || next.equals('\n')) {
                 continue;
             }
+            //删除注释
+            if (next == '/') {
+                if (lookahead == '/') {
+                    while (iterator.hasNext() && iterator.next() != '\n') {
+                        ;
+                    }
+                } else if (lookahead == '*') {
+                    boolean valid = false;
+                    while (iterator.hasNext()) {
+                        Character c = iterator.next();
+                        if (c == '*' && iterator.peek() == '/') {
+                            valid = true;
+                            iterator.next();
+                            break;
+                        }
+                    }
+                    if (!valid) {
+                        throw new LexicalException("comments not match");
+                    }
+                }
+                continue;
+            }
+
             if (next == '{' || next == '}' || next == '(' || next == ')') {
                 tokens.add(new Token(TokenType.BRACKET, next + ""));
                 continue;
