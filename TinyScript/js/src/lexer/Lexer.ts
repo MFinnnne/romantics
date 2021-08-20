@@ -10,10 +10,10 @@ import PeekIterator from "../commons/PeekIterator";
 import TokenType from "./TokenType";
 import AlphabetHelper from "./AlphabetHelper";
 
-class Lexer {
+export default class Lexer {
 
 
-    static analyse(source: Iterator<string>): Token[] {
+    public analyse(source: Iterator<string>): Token[] {
         const it: PeekIterator<string> = new PeekIterator(source, '0');
         const tokens: Token[] = []
         while (it.hasNext()) {

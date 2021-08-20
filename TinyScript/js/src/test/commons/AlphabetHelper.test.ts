@@ -1,4 +1,3 @@
-import arrayToGenerator from '../../commons/ArrayToGenerator'
 import AlphabetHelper from "../../lexer/AlphabetHelper";
 
 describe('testAlphabetHelper',()=>{

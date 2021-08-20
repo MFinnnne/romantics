@@ -32,6 +32,7 @@ public class Lexer {
                         ;
                     }
                 } else if (lookahead == '*') {
+                    iterator.next();
                     boolean valid = false;
                     while (iterator.hasNext()) {
                         Character c = iterator.next();
@@ -70,7 +71,7 @@ public class Lexer {
                 continue;
             }
             if ((next == '+' || next == '-' || next == '.') && AlphabetHelper.isNumber(lookahead)) {
-                Token token = tokens.size() == 0 ? null : tokens.get(tokens.size() - 1);
+                Token token = tokens.isEmpty()? null : tokens.get(tokens.size() - 1);
                 if (token == null || !token.isNumber() || token.isOperator()) {
                     iterator.putBack();
                     tokens.add(Token.makeNumber(iterator));
