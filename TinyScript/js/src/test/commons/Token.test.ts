@@ -58,19 +58,20 @@ describe("test token", () => {
 
     test("test make number", () => {
         const tests: string[] = [
+            "10",
             "0000xx",
             "0.21d1",
             "021dew",
             "2.11sd",
             "21sa",
             "-1xx",
-            "+1a",
+            "20",
             "1231.1231x"
         ];
-        const results: string[] = ["0", "0.21", "21", "2.11", "21", "-1", "+1", "1231.1231"];
+        const results: string[] = ["10","0", "0.21", "21", "2.11", "21", "-1", "20", "1231.1231"];
         let i: number = 0;
         for (const test of tests) {
-            const iterator: PeekIterator<string> = new PeekIterator<string>(arrayToGenerator([...test]));
+            const iterator: PeekIterator<string> = new PeekIterator<string>(arrayToGenerator([...test]),'\0');
             let token3 = Token.makeNumber(iterator);
             expect(token3.value).toEqual(results[i++]);
         }

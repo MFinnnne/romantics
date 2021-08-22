@@ -14,14 +14,17 @@ export default class Lexer {
 
 
     public analyse(source: Iterator<string>): Token[] {
-        const it: PeekIterator<string> = new PeekIterator(source, '0');
+        const it: PeekIterator<string> = new PeekIterator(source, '\0');
         const tokens: Token[] = []
         while (it.hasNext()) {
             const next: string = it.next();
-            if (next === '0') {
+            if (next == '\0') {
                 break
             }
-            const lookahead: string = it.peek();
+            let lookahead: string | null = it.peek();
+            if (lookahead == null) {
+                lookahead = '\0';
+            }
             if (next === ' ' || next === '\n') {
                 continue;
             }

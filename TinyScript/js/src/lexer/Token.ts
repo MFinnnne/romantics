@@ -43,13 +43,15 @@ export default class Token {
     static makeVarOrKeyword(it: PeekIterator<string>): Token {
         let s: string = "";
         while (it.hasNext()) {
-            const lookahead: string = it.peek();
-            if (AlphabetHelper.isLiteral(lookahead)) {
-                s += lookahead;
-            } else {
-                break;
+            const lookahead: string | null = it.peek();
+            if (lookahead) {
+                if (AlphabetHelper.isLiteral(lookahead)) {
+                    s += lookahead;
+                } else {
+                    break;
+                }
+                it.next()
             }
-            it.next()
         }
         if (KeyWords.isKeyWords(s)) {
             return new Token(TokenType.KEYWORD, s);
@@ -137,6 +139,10 @@ export default class Token {
                         case '%':
                             state = 12;
                             break;
+                        case ',':
+                            return new Token(TokenType.OPERATOR, ",");
+                        case ';':
+                            return new Token(TokenType.OPERATOR, ";");
                         default:
                             break;
                     }
@@ -249,10 +255,10 @@ export default class Token {
         let state: number = 0;
         let res = "";
         while (it.hasNext()) {
-            const lookahead: string = it.peek();
+            const lookahead: string | null = it.peek();
             switch (state) {
                 case 0:
-                    if (lookahead == '0') {
+                    if (lookahead === '0') {
                         state = 1;
                     } else if (AlphabetHelper.isNumber(lookahead)) {
                         state = 2;
@@ -265,6 +271,9 @@ export default class Token {
                     break;
                 case 1:
                     if (lookahead == '0') {
+                        if ("0" === res) {
+                            res = "";
+                        }
                         state = 1;
                     } else if (AlphabetHelper.isNumber(lookahead)) {
                         if ("0" === res) {
@@ -274,7 +283,7 @@ export default class Token {
                     } else if (lookahead == '.') {
                         state = 4;
                     } else {
-                        return new Token(TokenType.INTEGER, "0");
+                        return new Token(TokenType.INTEGER, res);
                     }
                     break;
                 case 2:
@@ -283,7 +292,7 @@ export default class Token {
                     } else if (lookahead == '.') {
                         state = 4;
                     } else {
-                        return new Token(TokenType.INTEGER, res.toString());
+                        return new Token(TokenType.INTEGER, res);
                     }
                     break;
                 case 3:
@@ -301,14 +310,14 @@ export default class Token {
                     } else if (AlphabetHelper.isNumber(lookahead)) {
                         state = 6;
                     } else {
-                        return new Token(TokenType.FLOAT, res.toString());
+                        return new Token(TokenType.FLOAT, res);
                     }
                     break;
                 case 5:
                     if (AlphabetHelper.isNumber(lookahead)) {
                         state = 6;
                     } else {
-                        return new Token(TokenType.FLOAT, res.toString());
+                        return new Token(TokenType.FLOAT, res);
                     }
                     break;
                 case 6:
@@ -317,11 +326,12 @@ export default class Token {
                     } else if (lookahead == '.') {
                         throw new LexicalException("unexpected token:" + lookahead);
                     } else {
-                        return new Token(TokenType.FLOAT, res.toString());
+                        return new Token(TokenType.FLOAT, res);
                     }
                     break;
                 default:
                     break;
+
             }
             it.next();
             res += lookahead;

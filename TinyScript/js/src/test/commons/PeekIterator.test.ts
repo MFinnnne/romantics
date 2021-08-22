@@ -38,13 +38,14 @@ describe("test PeekIterator", () => {
     })
 
     test("test peek and next",()=>{
-        const data = 'abcdefg'
-        const it = new PeekIterator(arrayToGenerator([...data]))
+        const data = 'abcde'
+        const it = new PeekIterator(arrayToGenerator([...data]),'\0')
         expect(it.next()).toEqual('a')
         expect(it.next()).toEqual('b')
         expect(it.next()).toEqual('c')
         it.peek();
         expect(it.next()).toEqual('d')
         expect(it.next()).toEqual('e')
+        expect(it.next()).toEqual('\0');
     })
 })
