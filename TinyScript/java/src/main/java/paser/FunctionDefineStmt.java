@@ -6,4 +6,7 @@ package paser;
  * @date 2021/8/23 0:22
  **/
 public class FunctionDefineStmt extends Stmt{
+    protected FunctionDefineStmt(ASTNode parent) {
+        super(parent);
+    }
 }
