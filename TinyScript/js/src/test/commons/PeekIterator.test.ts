@@ -1,5 +1,5 @@
-import arrayToGenerator from '../../commons/ArrayToGenerator'
-import PeekIterator from '../../commons/PeekIterator'
+import arrayToGenerator from '../../main/js/commons/ArrayToGenerator'
+import PeekIterator from '../../main/js/commons/PeekIterator'
 
 
 describe("test PeekIterator", () => {

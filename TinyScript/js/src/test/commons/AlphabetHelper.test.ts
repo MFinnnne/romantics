@@ -1,4 +1,4 @@
-import AlphabetHelper from "../../lexer/AlphabetHelper";
+import AlphabetHelper from "../../main/js/lexer/AlphabetHelper";
 
 describe('testAlphabetHelper',()=>{
 

@@ -1,7 +1,7 @@
-import PeekIterator from "../../commons/PeekIterator";
-import arrayToGenerator from "../../commons/ArrayToGenerator";
-import Token from "../../lexer/Token";
-import TokenType from "../../lexer/TokenType";
+import PeekIterator from "../../main/js/commons/PeekIterator";
+import arrayToGenerator from "../../main/js/commons/ArrayToGenerator";
+import Token from "../../main/js/lexer/Token";
+import TokenType from "../../main/js/lexer/TokenType";
 
 describe("test token", () => {
     test('test VarOrKeyword', () => {

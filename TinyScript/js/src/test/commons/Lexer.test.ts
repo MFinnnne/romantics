@@ -1,7 +1,7 @@
-import Token from "../../lexer/Token";
-import TokenType from "../../lexer/TokenType";
-import Lexer from "../../lexer/Lexer";
-import arrayToGenerator from "../../commons/ArrayToGenerator";
+import Token from "../../main/js/lexer/Token";
+import TokenType from "../../main/js/lexer/TokenType";
+import Lexer from "../../main/js/lexer/Lexer";
+import arrayToGenerator from "../../main/js/commons/ArrayToGenerator";
 
 const assertToken = (token: Token, value: string, type: TokenType) => {
     expect(value).toEqual(token.value);
