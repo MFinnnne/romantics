@@ -9,4 +9,5 @@ public class Stmt extends ASTNode {
     protected Stmt(ASTNode parent, ASTNodeTypes types, String label) {
         super(parent, types, label);
     }
+
 }

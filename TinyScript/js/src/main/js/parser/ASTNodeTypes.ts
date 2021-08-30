@@ -1,4 +1,4 @@
-export default enum ASTNodeTypes {
+enum ASTNodeTypes {
     /**
      * 块
      */
@@ -43,5 +43,11 @@ export default enum ASTNodeTypes {
     /**
      * 申报的支撑
      */
-    DECLARE_STMT;
+    DECLARE_STMT,
+    /**
+     * 程序
+     */
+    PROGRAM,
 }
+
+export default ASTNodeTypes;

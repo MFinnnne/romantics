@@ -10,7 +10,7 @@ export default class ASTNode {
     protected types: ASTNodeTypes | null;
 
 
-    constructor(parent: ASTNode, label: string | null, types: ASTNodeTypes | null) {
+    constructor(parent: ASTNode, types: ASTNodeTypes | null, label: string | null) {
         this.parent = parent;
         this.label = label;
         this.types = types;
