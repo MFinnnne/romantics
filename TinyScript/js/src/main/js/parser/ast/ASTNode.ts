@@ -1,19 +1,34 @@
 import ASTNodeTypes from "./ASTNodeTypes";
-import Token from "../lexer/Token";
+import Token from "../../lexer/Token";
 
 export default class ASTNode {
 
     protected children: ASTNode[] = []
-    protected parent: ASTNode;
-    protected lexeme: Token | undefined;
-    protected label: string | null;
-    protected types: ASTNodeTypes | null;
+    protected parent: ASTNode | null;
+    private _lexeme: Token | undefined;
+    private _label: string | null;
+    private _type: ASTNodeTypes | null;
 
 
-    constructor(parent: ASTNode, types: ASTNodeTypes | null, label: string | null) {
+    constructor(parent: ASTNode | null, types: ASTNodeTypes | null, label: string | null) {
         this.parent = parent;
-        this.label = label;
-        this.types = types;
+        this._label = label;
+        this._type = types;
+    }
+
+
+    set lexeme(value: Token | undefined) {
+        this._lexeme = value;
+    }
+
+
+
+    set label(value: string | null) {
+        this._label = value;
+    }
+
+    set type(value: ASTNodeTypes | null) {
+        this._type = value;
     }
 
     /**
@@ -41,6 +56,6 @@ export default class ASTNode {
      * @return token lexeme
      */
     public getLexeme(): Token | undefined {
-        return this.lexeme;
+        return this._lexeme;
     }
 }

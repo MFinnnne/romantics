@@ -13,16 +13,16 @@ export default class PeekIterator<T> {
     readonly CACHE_SIZE: number = 10
     private endToken: T | null = null
 
-    constructor(it: Iterator<T>, endToken?: T) {
+    constructor(it: Iterator<T>, endToken?: T | null) {
         this.it = it
         this.endToken = endToken ?? null
     }
 
-    peek(): T {
+    peek(): T|undefined {
         if (this.stackPutBacks.length > 0 && this.stackPutBacks.tail) {
             return this.stackPutBacks.tail.data
         }
-        const next: T = this.next();
+        const next: T | undefined = this.next();
         this.putBack()
         return next;
     }
@@ -38,7 +38,7 @@ export default class PeekIterator<T> {
     }
 
 
-    next(): T {
+    next(): T | undefined {
         let val: T | undefined
         if (this.stackPutBacks.length > 0) {
             val = this.stackPutBacks.pop()
@@ -55,7 +55,7 @@ export default class PeekIterator<T> {
             this.queueCache.shift()
         }
         if (!val) {
-            throw new Error("token can not undefined")
+            return val;
         }
         this.queueCache.append(val)
         return val

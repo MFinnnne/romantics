@@ -6,3 +6,5 @@ lexer/TokenTest.java
  lexer.TokenTest
 lexer/LexerTests.java
  lexer.LexerTests
+paser/ast/SimpleParserTest.java
+ paser.ast.SimpleParserTest

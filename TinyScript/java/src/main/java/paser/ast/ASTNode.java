@@ -1,4 +1,4 @@
-package paser;
+package paser.ast;
 
 import lexer.Token;
 
@@ -18,7 +18,7 @@ public abstract class ASTNode {
     /**
      * 孩子们
      */
-    protected ArrayList<ASTNode> children;
+    protected ArrayList<ASTNode> children=new ArrayList<>();
     /**
      * 父
      */
@@ -37,21 +37,31 @@ public abstract class ASTNode {
     /**
      * 类型
      */
-    protected ASTNodeTypes types;
+    protected ASTNodeTypes type;
+
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
     /**
      * astnode
      *
      * @param parent 父
      */
-    protected ASTNode(ASTNode parent, ASTNodeTypes types, String label) {
+    protected ASTNode(ASTNode parent, ASTNodeTypes type, String label) {
         this.parent = parent;
-        this.types = types;
+        this.type = type;
         this.label = label;
     }
 
     protected ASTNode(ASTNode parent) {
         this.parent = parent;
+    }
+
+
+    public void setLexeme(Token lexeme) {
+        this.lexeme = lexeme;
     }
 
     /**
@@ -89,5 +99,9 @@ public abstract class ASTNode {
      */
     public List<ASTNode> getChildren() {
         return children;
+    }
+
+    public void setType(ASTNodeTypes type) {
+        this.type = type;
     }
 }

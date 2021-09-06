@@ -1,4 +1,4 @@
-package paser;
+package paser.ast;
 
 /**
  * @author MFine
