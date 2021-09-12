@@ -17,10 +17,21 @@ export default class ASTNode {
     }
 
 
+    get lexeme(): Token | undefined {
+        return this._lexeme;
+    }
+
+    get label(): string | null {
+        return this._label;
+    }
+
+    get type(): ASTNodeTypes | null {
+        return this._type;
+    }
+
     set lexeme(value: Token | undefined) {
         this._lexeme = value;
     }
-
 
 
     set label(value: string | null) {
@@ -36,9 +47,9 @@ export default class ASTNode {
      * @param index
      * @return number
      */
-    public getChildren(index: number | null): ASTNode | ASTNode[] {
+    public getChildren(index: number | null): ASTNode | null {
         if (index == null) {
-            return this.children
+            return null
         }
         return this.children[index];
     }

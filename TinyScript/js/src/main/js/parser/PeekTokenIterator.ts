@@ -11,12 +11,12 @@ export default class PeekTokenIterator extends PeekIterator<Token> {
 
     nextMatch(value: string | TokenType) {
         const token = this.next();
-        if (typeof value === "string") {
+        if (token && typeof value === "string") {
             if (token.value !== value) {
                 throw ParseException.fromToken(token)
             }
         } else {
-            if (token.type !== value) {
+            if (token && token.type !== value) {
                 throw ParseException.fromToken(token);
             }
         }
