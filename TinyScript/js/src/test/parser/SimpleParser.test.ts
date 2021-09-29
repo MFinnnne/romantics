@@ -4,7 +4,6 @@ import arrayToGenerator from "../../main/js/commons/ArrayToGenerator";
 import SimpleParser from "../../main/js/parser/SimpleParser";
 import PeekTokenIterator from "../../main/js/parser/PeekTokenIterator";
 import ASTNode from "../../main/js/parser/ast/ASTNode";
-import * as assert from "assert";
 
 describe("test simple parser", () => {
     test("test 1+2+3+4", () => {
