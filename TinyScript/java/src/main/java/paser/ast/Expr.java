@@ -55,12 +55,12 @@ public class Expr extends ASTNode {
         String value = token.getValue();
         ASTNode expr = null;
 
-        if (value.equals("(")) {
+        if ("(".equals(value)) {
             it.nextMatch("(");
             expr = E(parent, 0, it);
             it.nextMatch(")");
             return expr;
-        } else if (value.equals("++") || value.equals("--") || value.equals("!")) {
+        } else if ("++".equals(value) || "--".equals(value) || "!".equals(value)) {
             var t = it.peek();
             it.nextMatch(value);
             Expr unaryExpr = new Expr(parent, ASTNodeTypes.UNARY_EXPR, t);
@@ -94,7 +94,7 @@ public class Expr extends ASTNode {
         var token = it.peek();
         var value = token.getValue();
 
-        if (table.get(k).indexOf(value) != -1) {
+        if (table.get(k).contains(value)) {
             Expr expr = new Expr(parent, ASTNodeTypes.BINARY_EXPR, it.nextMatch(value));
             expr.addChild(combine(parent, it,
                     () -> E(parent, k + 1, it),
@@ -120,4 +120,7 @@ public class Expr extends ASTNode {
         return expr;
     }
 
+    public static ASTNode parse(PeekTokenIterator tokenIt) throws ParseException {
+        return E(null, 0, tokenIt);
+    }
 }

@@ -104,4 +104,8 @@ public abstract class ASTNode {
     public void setType(ASTNodeTypes type) {
         this.type = type;
     }
+
+    public ASTNodeTypes getType() {
+        return type;
+    }
 }
