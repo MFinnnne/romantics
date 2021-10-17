@@ -17,10 +17,10 @@ import java.util.ArrayList;
  * @version 1.0
  * @date 2021/10/12 0:45
  **/
-public class ParseExprTests {
+class ParseExprTests {
     @Test
     void simple() throws LexicalException, ParseException, ExecutionControl.NotImplementedException {
-        var expr = createExpr("1+1+1");
+        var expr = createExpr("1*1+1");
         Assertions.assertEquals("1 1 1 + +", ParserUtils.toPostfixExpression(expr));
     }
 

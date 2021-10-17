@@ -45,7 +45,6 @@ public class Expr extends ASTNode {
             return race(it,
                     () -> combine(parent, it, () -> U(parent, it), () -> E_(parent, k, it)),
                     () -> combine(parent, it, () -> F(parent, it), () -> E_(parent, k, it))
-
             );
         }
     }
@@ -100,6 +99,7 @@ public class Expr extends ASTNode {
                     () -> E(parent, k + 1, it),
                     () -> E_(parent, k, it)
             ));
+            return expr;
         }
         return null;
     }
@@ -110,13 +110,13 @@ public class Expr extends ASTNode {
         if (a == null) {
             return it.hasNext() ? bFunc.hoc() : null;
         }
-        var b = bFunc.hoc();
+        var b = it.hasNext() ? bFunc.hoc() : null;
         if (b == null) {
             return a;
         }
         Expr expr = new Expr(parent, ASTNodeTypes.BINARY_EXPR, b.lexeme);
         expr.addChild(a);
-        expr.addChild(b.getChildren(1));
+        expr.addChild(b.getChildren(0));
         return expr;
     }
 
