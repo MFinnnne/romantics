@@ -2,9 +2,7 @@ package paser;
 
 import lexer.Token;
 import lexer.TokenType;
-import paser.ast.ASTNode;
-import paser.ast.ASTNodeTypes;
-import paser.ast.Expr;
+import paser.ast.*;
 import paser.util.ExprHOF;
 import paser.util.ParseException;
 import paser.util.PeekTokenIterator;
@@ -27,6 +25,38 @@ public class MySimpleParser {
             return null;
         }
 
+    }
+
+
+    private static ASTNode F(PeekTokenIterator it) {
+        Token next = it.next();
+        if (next.isVariable()) {
+            return new Variable(null, it);
+        }
+        if (next.isScalar()) {
+            return new Scalar(null, it);
+        }
+        return null;
+
+    }
+
+    private static ASTNode U(PeekTokenIterator it) throws ParseException {
+        Token next = it.peek();
+        String value = next.getValue();
+
+        if ("(".equals(value)) {
+            it.nextMatch("(");
+            ASTNode node = E(it, 0);
+            it.nextMatch(")");
+            return node;
+        }
+        if ("++".equals(value) || "--".equals(value) || "!".equals(value)) {
+            it.next();
+            Expr expr = new Expr(null, ASTNodeTypes.UNARY_EXPR, new Token(TokenType.OPERATOR, value));
+            expr.addChild(E(it,0));
+            return expr;
+        }
+        return null;
     }
 
 

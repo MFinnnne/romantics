@@ -8,7 +8,7 @@ import paser.util.PeekTokenIterator;
  * @date 2021/8/23 0:20
  **/
 public class Variable extends Factor {
-    protected Variable(ASTNode parent, PeekTokenIterator it) {
+    public Variable(ASTNode parent, PeekTokenIterator it) {
         super(parent, it);
     }
 }
