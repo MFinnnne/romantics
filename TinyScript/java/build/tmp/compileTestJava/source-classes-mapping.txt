@@ -8,3 +8,5 @@ lexer/LexerTests.java
  lexer.LexerTests
 paser/ast/SimpleParserTest.java
  paser.ast.SimpleParserTest
+paser/ast/ParseExprTests.java
+ paser.ast.ParseExprTests

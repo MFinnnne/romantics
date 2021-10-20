@@ -42,10 +42,11 @@ public class Expr extends ASTNode {
         if (k < table.size() - 1) {
             return combine(parent, it, () -> E(parent, k + 1, it), () -> E_(parent, k, it));
         } else {
-            return race(it,
+            ASTNode race = race(it,
                     () -> combine(parent, it, () -> U(parent, it), () -> E_(parent, k, it)),
                     () -> combine(parent, it, () -> F(parent, it), () -> E_(parent, k, it))
             );
+            return  race;
         }
     }
 

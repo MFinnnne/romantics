@@ -9,7 +9,7 @@ import paser.util.PeekTokenIterator;
  * @date 2021/8/23 0:20
  **/
 public class Scalar extends Factor{
-    protected Scalar(ASTNode parent , PeekTokenIterator it) {
+    public Scalar(ASTNode parent, PeekTokenIterator it) {
         super(parent, it);
     }
 }
