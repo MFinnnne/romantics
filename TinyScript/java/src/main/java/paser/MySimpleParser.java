@@ -27,6 +27,17 @@ public class MySimpleParser {
 
     }
 
+    private static ASTNode race(PeekTokenIterator it, ExprHOF aFunc, ExprHOF bFunc) throws ParseException {
+        ASTNode a = aFunc.hoc();
+        if (a != null) {
+            return a;
+        }
+        ASTNode b = it.hasNext() ? aFunc.hoc() : null;
+        if (b != null) {
+            return b;
+        }
+        return null;
+    }
 
     private static ASTNode F(PeekTokenIterator it) {
         Token next = it.next();
@@ -53,7 +64,7 @@ public class MySimpleParser {
         if ("++".equals(value) || "--".equals(value) || "!".equals(value)) {
             it.next();
             Expr expr = new Expr(null, ASTNodeTypes.UNARY_EXPR, new Token(TokenType.OPERATOR, value));
-            expr.addChild(E(it,0));
+            expr.addChild(E(it, 0));
             return expr;
         }
         return null;
