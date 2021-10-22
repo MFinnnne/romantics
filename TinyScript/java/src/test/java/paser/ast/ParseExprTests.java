@@ -32,6 +32,8 @@ class ParseExprTests {
         return Expr.parse(tokenIt);
     }
 
+
+    // 我终于写出来了
     private ASTNode myCreateExpr(String src) throws LexicalException, ParseException {
         Lexer lexer = new Lexer();
         ArrayList<Token> tokens = lexer.analyse(src.chars().mapToObj(x -> (char) x));
@@ -42,6 +44,6 @@ class ParseExprTests {
     @Test
     void mySimpleParser() throws LexicalException, ParseException, ExecutionControl.NotImplementedException {
         var expr = myCreateExpr("1*1+1*1");
-        Assertions.assertEquals("1 1 + ", ParserUtils.toPostfixExpression(expr));
+        Assertions.assertEquals("1 1 * 1 1 * +", ParserUtils.toPostfixExpression(expr));
     }
 }
