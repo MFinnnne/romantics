@@ -41,7 +41,7 @@ class ParseExprTests {
 
     @Test
     void mySimpleParser() throws LexicalException, ParseException, ExecutionControl.NotImplementedException {
-        var expr = myCreateExpr("1+1");
+        var expr = myCreateExpr("1*1+1*1");
         Assertions.assertEquals("1 1 + ", ParserUtils.toPostfixExpression(expr));
     }
 }

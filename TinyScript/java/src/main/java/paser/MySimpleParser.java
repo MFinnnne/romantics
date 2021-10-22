@@ -19,20 +19,26 @@ public class MySimpleParser {
 
     private static ASTNode E(PeekTokenIterator it, int k) throws ParseException {
         if (k < TABLE.size() - 1) {
-            return combine(it, () -> E(it, k), () -> E_(it, k + 1));
+            return combine(it, () -> E(it, k+1), () -> E_(it, k));
         } else {
             //最高优先级
-            return null;
+            return race(it,
+                    () -> combine(it, () -> F(it), () -> E_(it, k)),
+                    () -> combine(it, () -> U(it), () -> E_(it, k))
+            );
         }
 
     }
 
     private static ASTNode race(PeekTokenIterator it, ExprHOF aFunc, ExprHOF bFunc) throws ParseException {
+        if (!it.hasNext()) {
+            return null;
+        }
         ASTNode a = aFunc.hoc();
         if (a != null) {
             return a;
         }
-        ASTNode b = it.hasNext() ? aFunc.hoc() : null;
+        ASTNode b = it.hasNext() ? bFunc.hoc() : null;
         if (b != null) {
             return b;
         }
@@ -40,7 +46,7 @@ public class MySimpleParser {
     }
 
     private static ASTNode F(PeekTokenIterator it) {
-        Token next = it.next();
+        Token next = it.peek();
         if (next.isVariable()) {
             return new Variable(null, it);
         }
@@ -72,11 +78,13 @@ public class MySimpleParser {
 
 
     private static ASTNode E_(PeekTokenIterator it, int k) throws ParseException {
-        Token peek = it.next();
+        Token peek = it.peek();
         String value = peek.getValue();
         if (TABLE.get(k).contains(value)) {
+            it.next();
             Expr expr = new Expr(null, ASTNodeTypes.UNARY_EXPR, new Token(TokenType.OPERATOR, value));
             expr.addChild(combine(it, () -> E(it, k + 1), () -> E_(it, k)));
+            return expr;
         }
         return null;
     }
@@ -96,4 +104,7 @@ public class MySimpleParser {
         return expr;
     }
 
+    public static ASTNode parse(PeekTokenIterator it) throws ParseException {
+        return E(it, 0);
+    }
 }
