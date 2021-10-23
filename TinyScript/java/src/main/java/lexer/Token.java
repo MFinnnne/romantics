@@ -72,13 +72,16 @@ public class Token {
                 case 0:
                     if (c == '\'') {
                         state = 1;
+                        s.append(c);
                     }
                     if (c == '\"') {
                         state = 2;
+                        s.append(c);
                     }
                     break;
                 case 1:
                     if (c == '\'') {
+                        s.append(c);
                         return new Token(TokenType.STRING, s.toString());
                     } else {
                         s.append(c);
@@ -86,6 +89,7 @@ public class Token {
                     break;
                 case 2:
                     if (c == '"') {
+                        s.append(c);
                         return new Token(TokenType.STRING, s.toString());
                     }
                     s.append(c);

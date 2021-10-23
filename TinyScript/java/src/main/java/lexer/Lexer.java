@@ -57,6 +57,7 @@ public class Lexer {
             if (next == '"' || next == '\'') {
                 iterator.putBack();
                 tokens.add(Token.makeString(iterator));
+                continue;
             }
 
             if (AlphabetHelper.isLetter(next)) {

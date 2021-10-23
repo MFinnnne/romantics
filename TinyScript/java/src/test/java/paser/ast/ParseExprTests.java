@@ -25,6 +25,20 @@ class ParseExprTests {
         Assertions.assertEquals("1 1 1 + +", ParserUtils.toPostfixExpression(expr));
     }
 
+    @Test
+    void sample1() throws LexicalException, ParseException, ExecutionControl.NotImplementedException {
+        var expr = createExpr("1*1+1*1");
+        Assertions.assertEquals("1 1 * 1 1 * +", ParserUtils.toPostfixExpression(expr));
+
+    }
+
+    @Test
+    void sample2() throws LexicalException, ParseException, ExecutionControl.NotImplementedException {
+        var expr = createExpr("\"1\" == \"1\"");
+        Assertions.assertEquals("\"1\" \"1\" ==", ParserUtils.toPostfixExpression(expr));
+
+    }
+
     private ASTNode createExpr(String src) throws LexicalException, ParseException {
         Lexer lexer = new Lexer();
         ArrayList<Token> tokens = lexer.analyse(src.chars().mapToObj(x -> (char) x));
