@@ -14,7 +14,7 @@ export default class Token {
     private readonly _type: TokenType | null = null;
     private readonly _value: string | null = null;
 
-    constructor(type: TokenType, value: string) {
+    constructor(type: TokenType, value: string | null) {
         this._type = type;
         this._value = value;
     }
@@ -66,7 +66,10 @@ export default class Token {
         let s = "";
         let state: number = 0;
         while (it.hasNext()) {
-            const c: string = it.next();
+            const c: string | null = it.next();
+            if (c == null) {
+                continue;
+            }
             switch (state) {
                 case 0:
                     if (c == '\'') {
@@ -99,7 +102,10 @@ export default class Token {
     static makeOp(it: PeekIterator<string>): Token {
         let state: number = 0;
         while (it.hasNext()) {
-            const lookahead: string = it.next();
+            const lookahead: string | null = it.next();
+            if (lookahead == null) {
+                continue;
+            }
             switch (state) {
                 case 0:
                     switch (lookahead) {
@@ -256,6 +262,9 @@ export default class Token {
         let res = "";
         while (it.hasNext()) {
             const lookahead: string | null = it.peek();
+            if (lookahead == null) {
+                continue;
+            }
             switch (state) {
                 case 0:
                     if (lookahead === '0') {

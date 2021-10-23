@@ -5,7 +5,7 @@ import PeekTokenIterator from "../PeekTokenIterator";
 
 export default class Scalar extends Factor {
 
-    constructor(parent: ASTNode, it: PeekTokenIterator) {
+    constructor(parent: ASTNode | null, it: PeekTokenIterator) {
         super(parent, it);
     }
 }

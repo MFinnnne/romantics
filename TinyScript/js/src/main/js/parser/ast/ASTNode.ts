@@ -3,9 +3,9 @@ import Token from "../../lexer/Token";
 
 export default class ASTNode {
 
-    protected children: ASTNode[] = []
+    private _children: ASTNode[] = []
     protected parent: ASTNode | null;
-    private _lexeme: Token | undefined;
+    private _lexeme: Token | null = null;
     private _label: string | null;
     private _type: ASTNodeTypes | null;
 
@@ -17,7 +17,7 @@ export default class ASTNode {
     }
 
 
-    get lexeme(): Token | undefined {
+    get lexeme(): Token | null {
         return this._lexeme;
     }
 
@@ -29,7 +29,7 @@ export default class ASTNode {
         return this._type;
     }
 
-    set lexeme(value: Token | undefined) {
+    set lexeme(value: Token | null) {
         this._lexeme = value;
     }
 
@@ -51,7 +51,7 @@ export default class ASTNode {
         if (index == null) {
             return null
         }
-        return this.children[index];
+        return this._children[index];
     }
 
     /**
@@ -60,13 +60,22 @@ export default class ASTNode {
      * @return void
      */
     public addChild(node: ASTNode): void {
-        this.children.push(node);
+        this._children.push(node);
     }
 
     /**
      * @return token lexeme
      */
-    public getLexeme(): Token | undefined {
+    public getLexeme(): Token | null {
         return this._lexeme;
+    }
+
+
+    get children(): ASTNode[] {
+        return this._children;
+    }
+
+    set children(value: ASTNode[]) {
+        this._children = value;
     }
 }
