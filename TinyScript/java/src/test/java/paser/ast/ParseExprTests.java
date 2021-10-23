@@ -30,12 +30,22 @@ class ParseExprTests {
         var expr = createExpr("1*1+1*1");
         Assertions.assertEquals("1 1 * 1 1 * +", ParserUtils.toPostfixExpression(expr));
 
+        var expr1 = createExpr("1*1+1");
+        Assertions.assertEquals("1 1 * 1 +", ParserUtils.toPostfixExpression(expr1));
+
+        var expr2 = createExpr("(1+1)*1");
+        Assertions.assertEquals("1 1 + 1 *", ParserUtils.toPostfixExpression(expr2));
+
+        var expr3 = createExpr("(1*2!=7)==3!=4*5+6");
+        Assertions.assertEquals("1 2 * 7 != 3 4 5 * 6 + != ==", ParserUtils.toPostfixExpression(expr3));
+
     }
 
     @Test
     void sample2() throws LexicalException, ParseException, ExecutionControl.NotImplementedException {
         var expr = createExpr("\"1\" == \"1\"");
         Assertions.assertEquals("\"1\" \"1\" ==", ParserUtils.toPostfixExpression(expr));
+
 
     }
 
