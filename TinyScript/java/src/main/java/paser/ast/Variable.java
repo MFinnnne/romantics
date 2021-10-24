@@ -11,4 +11,5 @@ public class Variable extends Factor {
     public Variable(ASTNode parent, PeekTokenIterator it) {
         super(parent, it);
     }
+
 }

@@ -14,6 +14,8 @@ public class ParserUtils {
         String leftStr = "";
         String rightStr = "";
         switch (node.getType()) {
+            case ASSIGN_STMT:
+            case DECLARE_STMT:
             case BINARY_EXPR:
                 leftStr = toPostfixExpression(node.getChildren(0));
                 rightStr = toPostfixExpression(node.getChildren(1));
@@ -24,6 +26,6 @@ public class ParserUtils {
             default:
                 break;
         }
-        throw new ExecutionControl.NotImplementedException("未实现");
+        throw new ExecutionControl.NotImplementedException("未实现 "+node.getType());
     }
 }

@@ -21,5 +21,17 @@ public class Factor extends ASTNode {
         }
         this.label = next.getValue();
         this.lexeme = next;
+
+    }
+
+    public static ASTNode parse(ASTNode parent, PeekTokenIterator it) {
+
+        Token next = it.peek();
+        if (next.isVariable()) {
+            return new Variable(parent, it);
+        } else if (next.isScalar()) {
+            return new Scalar(parent, it);
+        }
+        return null;
     }
 }

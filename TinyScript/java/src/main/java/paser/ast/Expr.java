@@ -46,7 +46,7 @@ public class Expr extends ASTNode {
                     () -> combine(parent, it, () -> U(parent, it), () -> E_(parent, k, it)),
                     () -> combine(parent, it, () -> F(parent, it), () -> E_(parent, k, it))
             );
-            return  race;
+            return race;
         }
     }
 
@@ -71,12 +71,7 @@ public class Expr extends ASTNode {
     }
 
     public static ASTNode F(ASTNode parent, PeekTokenIterator it) {
-        var token = it.peek();
-        if (token.isVariable()) {
-            return new Variable(parent, it);
-        } else {
-            return new Scalar(parent, it);
-        }
+        return Factor.parse(parent, it);
     }
 
     private static ASTNode race(PeekTokenIterator it, ExprHOF aFunc, ExprHOF bFunc) throws ParseException {

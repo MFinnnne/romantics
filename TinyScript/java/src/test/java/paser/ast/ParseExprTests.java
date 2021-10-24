@@ -21,7 +21,7 @@ import java.util.ArrayList;
 class ParseExprTests {
     @Test
     void simple() throws LexicalException, ParseException, ExecutionControl.NotImplementedException {
-        var expr = createExpr("1*1+1*1");
+        var expr = createExpr("1+1+1");
         Assertions.assertEquals("1 1 1 + +", ParserUtils.toPostfixExpression(expr));
     }
 
