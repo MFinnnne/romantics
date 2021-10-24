@@ -17,7 +17,10 @@ export default class Lexer {
         const it: PeekIterator<string> = new PeekIterator(source, '\0');
         const tokens: Token[] = []
         while (it.hasNext()) {
-            const next: string = it.next();
+            const next: string | null = it.next();
+            if (next == null) {
+                continue;
+            }
             if (next == '\0') {
                 break
             }
@@ -37,7 +40,7 @@ export default class Lexer {
                     it.next();
                     let valid: boolean = false;
                     while (it.hasNext()) {
-                        const c: string = it.next();
+                        const c: string | null = it.next();
                         if (c !== '*' && it.peek() === '/') {
                             it.next()
                             valid = true;
@@ -48,6 +51,13 @@ export default class Lexer {
                 }
                 continue;
             }
+
+            if (next === '\"' || next === '\'') {
+                it.putBack();
+                tokens.push(Token.makeString(it));
+                continue;
+            }
+
             // 提取关键字
             if (AlphabetHelper.isLetter(next)) {
                 it.putBack();

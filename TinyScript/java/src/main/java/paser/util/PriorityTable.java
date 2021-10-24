@@ -1,5 +1,8 @@
 package paser.util;
 
+import lexer.Token;
+import paser.ast.ASTNodeTypes;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,4 +31,6 @@ public class PriorityTable {
     public List<String> get(int level){
         return this.table.get(level);
     }
+
+
 }

@@ -18,14 +18,12 @@ export default class Expr extends ASTNode {
 
 
     private static E(it: PeekTokenIterator, k: number): ASTNode | null {
-        if (k < Expr.TABLE.table.length) {
+        if (k < Expr.TABLE.table.length-1) {
             return Expr.combine(it, () => this.E(it, k + 1), () => this.E_(it, k))
         } else {
 
             return Expr.race(it,
-
                 () => Expr.combine(it, () => Expr.F(it), () => Expr.E_(it, k)),
-
                 () => Expr.combine(it, () => Expr.U(it), () => Expr.E_(it, k))
             );
         }
@@ -43,7 +41,7 @@ export default class Expr extends ASTNode {
     }
 
     private static F(it: PeekTokenIterator): ASTNode | null {
-        const next = it.next();
+        const next = it.peek();
         if (next == null) {
             return null;
         }

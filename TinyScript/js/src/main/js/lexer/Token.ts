@@ -73,14 +73,17 @@ export default class Token {
             switch (state) {
                 case 0:
                     if (c == '\'') {
+                        s += c;
                         state = 1;
                     }
                     if (c == '\"') {
+                        s += c;
                         state = 2;
                     }
                     break;
                 case 1:
                     if (c == '\'') {
+                        s += c;
                         return new Token(TokenType.STRING, s.toString());
                     } else {
                         s += c;
@@ -88,6 +91,7 @@ export default class Token {
                     break;
                 case 2:
                     if (c == '"') {
+                        s += c;
                         return new Token(TokenType.STRING, s.toString());
                     }
                     s += c;

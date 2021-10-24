@@ -27,6 +27,16 @@ describe("test lexer", () => {
         assertToken(tokens[10], "20", TokenType.INTEGER);
     })
 
+    test("test string", () => {
+        const lexer1 = new Lexer();
+        const source = "\"1\"==\"1\"";
+        const tokens1 = lexer1.analyse(arrayToGenerator([...source]));
+        expect(tokens1.length).toEqual(3);
+        assertToken(tokens1[0], "\"1\"", TokenType.STRING);
+        assertToken(tokens1[1], "==", TokenType.OPERATOR);
+        assertToken(tokens1[2], "\"1\"", TokenType.STRING);
+    })
+
     test('test function', () => {
         const source: string = "func foo(a,b){\n" +
             "printf(a+b)\n" +
