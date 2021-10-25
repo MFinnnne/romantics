@@ -18,7 +18,7 @@ public abstract class ASTNode {
     /**
      * 孩子们
      */
-    protected ArrayList<ASTNode> children=new ArrayList<>();
+    protected ArrayList<ASTNode> children = new ArrayList<>();
     /**
      * 父
      */
@@ -107,5 +107,24 @@ public abstract class ASTNode {
 
     public ASTNodeTypes getType() {
         return type;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    protected void print(ASTNode node) {
+        System.out.println(node.getLexeme().getValue());
+        List<ASTNode> curNode = node.getChildren();
+        while (curNode.size() > 0) {
+            int count = 1;
+            for (ASTNode child : curNode) {
+                for (int i = 0; i < count; i++) {
+                    System.out.printf("\t");
+                }
+                System.out.println(child.getLabel());
+            }
+            count++;
+        }
     }
 }
