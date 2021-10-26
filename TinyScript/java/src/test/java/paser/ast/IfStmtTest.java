@@ -1,10 +1,13 @@
 package paser.ast;
 
+import jdk.jshell.spi.ExecutionControl;
 import lexer.Lexer;
 import lexer.LexicalException;
 import lexer.Token;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import paser.util.ParseException;
+import paser.util.ParserUtils;
 import paser.util.PeekTokenIterator;
 
 import java.util.ArrayList;
@@ -25,11 +28,25 @@ class IfStmtTest {
     }
 
     @Test
-    void IfStmt() throws LexicalException, ParseException {
+    void IfStmt() throws LexicalException, ParseException, ExecutionControl.NotImplementedException {
         PeekTokenIterator tokenIt = createTokenIt("if(a){\n" +
                 "a=1\n" +
                 "}");
         ASTNode parse = IfStmt.parse(null,tokenIt);
-        parse.print(parse);
+        parse.print(0);
+        Assertions.assertEquals("a a 1 = if", ParserUtils.toPostfixExpression(parse));
+    }
+
+    @Test
+    void IfElseStmt() throws LexicalException, ParseException, ExecutionControl.NotImplementedException {
+        PeekTokenIterator tokenIt = createTokenIt("if(a){\n" +
+                "a=1\n" +
+                "} else {\n" +
+                    "a=2\n"+
+                    "a=a*3"+
+                "}");
+        ASTNode parse = IfStmt.parse(null,tokenIt);
+        parse.print(0);
+        Assertions.assertEquals("a a 1 = if", ParserUtils.toPostfixExpression(parse));
     }
 }

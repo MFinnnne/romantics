@@ -3,7 +3,9 @@ package paser.ast;
 import lexer.Token;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * astnode
@@ -113,18 +115,17 @@ public abstract class ASTNode {
         return label;
     }
 
-    protected void print(ASTNode node) {
-        System.out.println(node.getLexeme().getValue());
-        List<ASTNode> curNode = node.getChildren();
-        while (curNode.size() > 0) {
-            int count = 1;
-            for (ASTNode child : curNode) {
-                for (int i = 0; i < count; i++) {
-                    System.out.printf("\t");
-                }
-                System.out.println(child.getLabel());
-            }
-            count++;
+    protected void print(int intent) {
+        if (intent == 0) {
+            System.out.println("print:" + this);
         }
+        for (int i = 0; i < intent * 2; i++) {
+            System.out.printf(" ");
+        }
+        System.out.println(label);
+        for (ASTNode child : children) {
+            child.print(intent + 1);
+        }
+
     }
 }

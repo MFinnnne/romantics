@@ -2,6 +2,10 @@ package paser.util;
 
 import jdk.jshell.spi.ExecutionControl;
 import paser.ast.ASTNode;
+import paser.ast.Factor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author MFine
@@ -11,21 +15,15 @@ import paser.ast.ASTNode;
 public class ParserUtils {
 
     public static String toPostfixExpression(ASTNode node) throws ExecutionControl.NotImplementedException {
-        String leftStr = "";
-        String rightStr = "";
-        switch (node.getType()) {
-            case ASSIGN_STMT:
-            case DECLARE_STMT:
-            case BINARY_EXPR:
-                leftStr = toPostfixExpression(node.getChildren(0));
-                rightStr = toPostfixExpression(node.getChildren(1));
-                return leftStr + " " + rightStr + " " + node.getLexeme().getValue();
-            case VARIABLE:
-            case SCALAR:
-                return node.getLexeme().getValue();
-            default:
-                break;
+        if (node instanceof Factor) {
+            return node.getLexeme().getValue();
         }
-        throw new ExecutionControl.NotImplementedException("未实现 "+node.getType());
+        List<String> ptr = new ArrayList<>();
+        for (ASTNode child : node.getChildren()) {
+            String s = toPostfixExpression(child);
+            ptr.add(s);
+        }
+        String s = node.getLexeme() != null ? node.getLexeme().getValue() : "";
+        return String.join(" ", ptr) +s;
     }
 }
