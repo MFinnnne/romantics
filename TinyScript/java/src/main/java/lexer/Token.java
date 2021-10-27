@@ -42,6 +42,10 @@ public class Token {
                 || type == TokenType.STRING || type == TokenType.BOOLEAN;
     }
 
+    public boolean isType() {
+        return this.value.equals("bool") || this.value.equals("int") || this.value.equals("float") || this.value.equals("void") || this.value.equals("string");
+    }
+
     public static Token makeVarOrKeyword(PeekIterator<Character> it) {
 
         String s = "";
@@ -147,7 +151,7 @@ public class Token {
                         case ',':
                             return new Token(TokenType.OPERATOR, ",");
                         case ';':
-                            return new Token(TokenType.OPERATOR,  ";");
+                            return new Token(TokenType.OPERATOR, ";");
                         default:
                             break;
                     }
@@ -341,10 +345,10 @@ public class Token {
     }
 
     public boolean isNumber() {
-        return this.getType()==TokenType.FLOAT||this.getType()==TokenType.INTEGER;
+        return this.getType() == TokenType.FLOAT || this.getType() == TokenType.INTEGER;
     }
 
     public boolean isOperator() {
-        return this.getType()==TokenType.OPERATOR;
+        return this.getType() == TokenType.OPERATOR;
     }
 }

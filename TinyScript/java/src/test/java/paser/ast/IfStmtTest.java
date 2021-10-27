@@ -4,6 +4,7 @@ import jdk.jshell.spi.ExecutionControl;
 import lexer.Lexer;
 import lexer.LexicalException;
 import lexer.Token;
+import lexer.TokenType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import paser.util.ParseException;
@@ -21,6 +22,12 @@ import static org.junit.jupiter.api.Assertions.*;
  **/
 class IfStmtTest {
 
+    void assertToken(Token token, String value, TokenType type) {
+        Assertions.assertEquals(value, token.getValue());
+        Assertions.assertEquals(type, token.getType());
+    }
+
+
     private PeekTokenIterator createTokenIt(String src) throws LexicalException {
         Lexer lexer = new Lexer();
         ArrayList<Token> tokens = lexer.analyse(src.chars().mapToObj(x -> (char) x));
@@ -32,7 +39,7 @@ class IfStmtTest {
         PeekTokenIterator tokenIt = createTokenIt("if(a){\n" +
                 "a=1\n" +
                 "}");
-        ASTNode parse = IfStmt.parse(null,tokenIt);
+        ASTNode parse = IfStmt.parse(null, tokenIt);
         parse.print(0);
         Assertions.assertEquals("a a 1 = if", ParserUtils.toPostfixExpression(parse));
     }
@@ -42,11 +49,27 @@ class IfStmtTest {
         PeekTokenIterator tokenIt = createTokenIt("if(a){\n" +
                 "a=1\n" +
                 "} else {\n" +
-                    "a=2\n"+
-                    "a=a*3"+
+                "a=2\n" +
+                "a=a*3" +
                 "}");
-        ASTNode parse = IfStmt.parse(null,tokenIt);
+        ASTNode parse = IfStmt.parse(null, tokenIt);
         parse.print(0);
-        Assertions.assertEquals("a a 1 = if", ParserUtils.toPostfixExpression(parse));
+        assertToken(parse.getLexeme(), "if", TokenType.KEYWORD);
+        ASTNode children = parse.getChildren(0);
+        assertToken(children.getLexeme(), "a", TokenType.VARIABLE);
+        ASTNode children1 = parse.getChildren(1);
+        Assertions.assertEquals(children1.getLabel(), "block");
+
+        ASTNode assign = children1.getChildren(0);
+        assertToken(assign.getLexeme(),"=",TokenType.OPERATOR);
+
+        ASTNode children2 = parse.getChildren(2);
+        Assertions.assertEquals(children2.getLabel(), "block");
+
+        ASTNode elseAssign1 = children2.getChildren(0);
+        assertToken(elseAssign1.getLexeme(),"=",TokenType.OPERATOR);
+
+        ASTNode elseAssign2 = children2.getChildren(1);
+        assertToken(elseAssign2.getLexeme(),"=",TokenType.OPERATOR);
     }
 }
