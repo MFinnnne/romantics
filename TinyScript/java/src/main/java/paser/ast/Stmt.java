@@ -25,7 +25,13 @@ public class Stmt extends ASTNode {
         if (token.isVariable() && "=".equals(lookahead.getValue())) {
             return AssignStmt.parse(parent, it);
         } else if ("var".equals(token.getValue())) {
-            return DeclareStmt.parseStmt(parent, it);
+            return DeclareStmt.parse(parent, it);
+        } else if ("func".equals(token.getValue())) {
+            return FunctionDefineStmt.parse(parent, it);
+        }else if ("return".equals(token.getValue())){
+            return ReturnStmt.parse(parent,it);
+        }else if ("if".equals(token.getValue())){
+            return IfStmt.parse(parent,it);
         }
         return null;
     }

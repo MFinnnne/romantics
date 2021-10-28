@@ -11,6 +11,8 @@ import paser.util.ParseException;
 import paser.util.ParserUtils;
 import paser.util.PeekTokenIterator;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @version 1.0
  * @date 2021/10/26 0:07
  **/
-class IfStmtTest {
+class StmtTest {
 
     void assertToken(Token token, String value, TokenType type) {
         Assertions.assertEquals(value, token.getValue());
@@ -71,5 +73,38 @@ class IfStmtTest {
 
         ASTNode elseAssign2 = children2.getChildren(1);
         assertToken(elseAssign2.getLexeme(),"=",TokenType.OPERATOR);
+    }
+
+    @Test
+    void function() throws LexicalException, FileNotFoundException, UnsupportedEncodingException, ParseException {
+        var tokens = Lexer.fromFile("./example/function.ts");
+        var functionStmt = (FunctionDefineStmt)Stmt.parseStmt(null,new PeekTokenIterator(tokens.stream()));
+        functionStmt.print(0);
+        ASTNode args = functionStmt.getArgs();
+        Assertions.assertEquals("a",args.getChildren(0).getLexeme().getValue());
+        Assertions.assertEquals("b",args.getChildren(1).getLexeme().getValue());
+        String funcType = functionStmt.getFuncType();
+        Assertions.assertEquals(funcType,"int");
+        Variable variable = functionStmt.getFunctionVariable();
+        Assertions.assertEquals(variable.getLexeme().getValue(),"add");
+        Block block = functionStmt.getBlock();
+        assertTrue(block.getChildren(0) instanceof ReturnStmt);
+    }
+
+
+    @Test
+    void recursion() throws LexicalException, FileNotFoundException, UnsupportedEncodingException, ParseException {
+        var tokens = Lexer.fromFile("./example/recursion.ts");
+        var functionStmt = (FunctionDefineStmt)Stmt.parseStmt(null,new PeekTokenIterator(tokens.stream()));
+        functionStmt.print(0);
+//        ASTNode args = functionStmt.getArgs();
+//        Assertions.assertEquals("a",args.getChildren(0).getLexeme().getValue());
+//        Assertions.assertEquals("b",args.getChildren(1).getLexeme().getValue());
+//        String funcType = functionStmt.getFuncType();
+//        Assertions.assertEquals(funcType,"int");
+//        Variable variable = functionStmt.getFunctionVariable();
+//        Assertions.assertEquals(variable.getLexeme().getValue(),"add");
+//        Block block = functionStmt.getBlock();
+//        assertTrue(block.getChildren(0) instanceof ReturnStmt);
     }
 }

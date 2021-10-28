@@ -48,9 +48,18 @@ public enum ASTNodeTypes {
     FUNCTION_DECLARE_STMT,
 
     /**
-     * 申报的支撑
+     * 定义语句
      */
     DECLARE_STMT,
+
+    /**
+     * 返回语句
+     */
+    RETURN_STMT,
+    /**
+     * 函数调用
+     */
+    CALL_STMT,
 
     PROGRAM;
 }

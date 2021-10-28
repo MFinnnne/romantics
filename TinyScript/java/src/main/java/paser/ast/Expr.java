@@ -42,11 +42,10 @@ public class Expr extends ASTNode {
         if (k < table.size() - 1) {
             return combine(parent, it, () -> E(parent, k + 1, it), () -> E_(parent, k, it));
         } else {
-            ASTNode race = race(it,
+            return race(it,
                     () -> combine(parent, it, () -> U(parent, it), () -> E_(parent, k, it)),
                     () -> combine(parent, it, () -> F(parent, it), () -> E_(parent, k, it))
             );
-            return race;
         }
     }
 
@@ -70,8 +69,14 @@ public class Expr extends ASTNode {
         return null;
     }
 
-    public static ASTNode F(ASTNode parent, PeekTokenIterator it) {
-        return Factor.parse(parent, it);
+    public static ASTNode F(ASTNode parent, PeekTokenIterator it) throws ParseException {
+        ASTNode parse = Factor.parse(parent, it);
+        Token lookahead = it.peek();
+        if (parse instanceof  Variable && "(".equals(lookahead.getValue())){
+            ASTNode node = CallStmt.parse(parent, it);
+            parse.addChild(node);
+        }
+        return parse;
     }
 
     private static ASTNode race(PeekTokenIterator it, ExprHOF aFunc, ExprHOF bFunc) throws ParseException {

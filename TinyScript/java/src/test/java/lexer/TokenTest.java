@@ -45,7 +45,7 @@ class TokenTest {
     }
 
     @Test
-    public void makeString() throws LexicalException {
+    void makeString() throws LexicalException {
         String[] tests = {
                 "\"123\"",
                 "'123'",
@@ -54,7 +54,7 @@ class TokenTest {
         List<PeekIterator<Character>> collect = Stream.of(tests).map((item -> new PeekIterator<>(item.chars().mapToObj(x -> (char) x)))).collect(Collectors.toList());
         for (PeekIterator<Character> characterPeekIterator : collect) {
             Token token = Token.makeString(characterPeekIterator);
-            Assertions.assertEquals(token.getValue(), "123");
+            Assertions.assertTrue(token.getValue().equals("\"123\"") || token.getValue().equals("\'123\'"));
         }
     }
 

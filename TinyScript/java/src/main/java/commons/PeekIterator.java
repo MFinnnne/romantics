@@ -29,6 +29,11 @@ public class PeekIterator<T> implements Iterator<T> {
         this.endToken = endToken;
     }
 
+    public PeekIterator(Iterator<T> it,T endToken) {
+        this.it = it;
+        this.endToken = endToken;
+    }
+
     public T peek() {
         if (this.stackPutBacks.size() > 0) {
             return this.stackPutBacks.getFirst();
