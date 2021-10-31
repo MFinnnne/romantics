@@ -63,30 +63,30 @@ class StmtTest {
         Assertions.assertEquals(children1.getLabel(), "block");
 
         ASTNode assign = children1.getChildren(0);
-        assertToken(assign.getLexeme(),"=",TokenType.OPERATOR);
+        assertToken(assign.getLexeme(), "=", TokenType.OPERATOR);
 
         ASTNode children2 = parse.getChildren(2);
         Assertions.assertEquals(children2.getLabel(), "block");
 
         ASTNode elseAssign1 = children2.getChildren(0);
-        assertToken(elseAssign1.getLexeme(),"=",TokenType.OPERATOR);
+        assertToken(elseAssign1.getLexeme(), "=", TokenType.OPERATOR);
 
         ASTNode elseAssign2 = children2.getChildren(1);
-        assertToken(elseAssign2.getLexeme(),"=",TokenType.OPERATOR);
+        assertToken(elseAssign2.getLexeme(), "=", TokenType.OPERATOR);
     }
 
     @Test
     void function() throws LexicalException, FileNotFoundException, UnsupportedEncodingException, ParseException {
         var tokens = Lexer.fromFile("./example/function.ts");
-        var functionStmt = (FunctionDefineStmt)Stmt.parseStmt(null,new PeekTokenIterator(tokens.stream()));
+        var functionStmt = (FunctionDefineStmt) Stmt.parseStmt(null, new PeekTokenIterator(tokens.stream()));
         functionStmt.print(0);
         ASTNode args = functionStmt.getArgs();
-        Assertions.assertEquals("a",args.getChildren(0).getLexeme().getValue());
-        Assertions.assertEquals("b",args.getChildren(1).getLexeme().getValue());
+        Assertions.assertEquals("a", args.getChildren(0).getLexeme().getValue());
+        Assertions.assertEquals("b", args.getChildren(1).getLexeme().getValue());
         String funcType = functionStmt.getFuncType();
-        Assertions.assertEquals(funcType,"int");
+        Assertions.assertEquals(funcType, "int");
         Variable variable = functionStmt.getFunctionVariable();
-        Assertions.assertEquals(variable.getLexeme().getValue(),"add");
+        Assertions.assertEquals(variable.getLexeme().getValue(), "add");
         Block block = functionStmt.getBlock();
         assertTrue(block.getChildren(0) instanceof ReturnStmt);
     }
@@ -95,16 +95,11 @@ class StmtTest {
     @Test
     void recursion() throws LexicalException, FileNotFoundException, UnsupportedEncodingException, ParseException {
         var tokens = Lexer.fromFile("./example/recursion.ts");
-        var functionStmt = (FunctionDefineStmt)Stmt.parseStmt(null,new PeekTokenIterator(tokens.stream()));
+        var functionStmt = (FunctionDefineStmt) Stmt.parseStmt(null, new PeekTokenIterator(tokens.stream()));
         functionStmt.print(0);
-//        ASTNode args = functionStmt.getArgs();
-//        Assertions.assertEquals("a",args.getChildren(0).getLexeme().getValue());
-//        Assertions.assertEquals("b",args.getChildren(1).getLexeme().getValue());
-//        String funcType = functionStmt.getFuncType();
-//        Assertions.assertEquals(funcType,"int");
-//        Variable variable = functionStmt.getFunctionVariable();
-//        Assertions.assertEquals(variable.getLexeme().getValue(),"add");
-//        Block block = functionStmt.getBlock();
-//        assertTrue(block.getChildren(0) instanceof ReturnStmt);
+        String s = ParserUtils.toBFSString(functionStmt, 5);
+        Assertions.assertEquals("function fact args block n", s);
+        Assertions.assertEquals("args n", ParserUtils.toBFSString(functionStmt.getArgs(),2));
+        Assertions.assertEquals("block if return", ParserUtils.toBFSString(functionStmt.getBlock(),3));
     }
 }

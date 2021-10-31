@@ -5,6 +5,7 @@ import paser.ast.ASTNode;
 import paser.ast.Factor;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -24,6 +25,21 @@ public class ParserUtils {
             ptr.add(s);
         }
         String s = node.getLexeme() != null ? node.getLexeme().getValue() : "";
-        return String.join(" ", ptr) +s;
+        return String.join(" ", ptr) + s;
+    }
+
+    public static String toBFSString(ASTNode root, int max) {
+        var queue = new LinkedList<ASTNode>();
+        var list = new ArrayList<String>();
+        queue.add(root);
+        int c = 0;
+        while (queue.size() > 0 && c++ < max) {
+            var node = queue.poll();
+            list.add(node.getLabel());
+            for (ASTNode child : node.getChildren()) {
+                queue.add(child);
+            }
+        }
+        return String.join(" ", list);
     }
 }
