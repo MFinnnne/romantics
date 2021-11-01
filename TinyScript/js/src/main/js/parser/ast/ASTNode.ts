@@ -6,27 +6,27 @@ export default class ASTNode {
     private _children: ASTNode[] = []
     protected parent: ASTNode | null;
     private _lexeme: Token | null = null;
-    private _label: string | null;
-    private _type: ASTNodeTypes | null;
+    private _label: string | null | undefined;
+    private _type: ASTNodeTypes | null | undefined;
 
 
-    constructor(parent: ASTNode | null, types: ASTNodeTypes | null, label: string | null) {
-        this.parent = parent;
+    constructor(types?: ASTNodeTypes | null, label?: string | null) {
+        this.parent = null;
         this._label = label;
         this._type = types;
     }
 
 
     get lexeme(): Token | null {
-        return this._lexeme;
+        return this._lexeme ?? null;
     }
 
     get label(): string | null {
-        return this._label;
+        return this._label ?? null;
     }
 
     get type(): ASTNodeTypes | null {
-        return this._type;
+        return this._type ?? null;
     }
 
     set lexeme(value: Token | null) {
