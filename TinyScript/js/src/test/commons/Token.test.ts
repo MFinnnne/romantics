@@ -2,6 +2,12 @@ import PeekIterator from "../../main/js/commons/PeekIterator";
 import arrayToGenerator from "../../main/js/commons/ArrayToGenerator";
 import Token from "../../main/js/lexer/Token";
 import TokenType from "../../main/js/lexer/TokenType";
+import * as assert from "assert";
+
+function assertToken(token:any, value:any, type:any) {
+    assert.equal(token.value, value)
+    assert.equal(token.type, type)
+}
 
 describe("test token", () => {
     test('test VarOrKeyword', () => {
@@ -19,15 +25,15 @@ describe("test token", () => {
     })
     test('test makeString', () => {
         const tests: string[] = [
-            "\"123\"",
             "'123'",
+            '"123"',
         ];
         const peekIterators: PeekIterator<string>[] = tests.map(item => {
             return new PeekIterator<string>(arrayToGenerator([...item]))
         });
         for (const peekIterator of peekIterators) {
             const token2 = Token.makeString(peekIterator);
-            expect(token2.value).toEqual("123")
+           assertToken(token2,,TokenType.STRING);
         }
     })
 

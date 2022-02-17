@@ -3,11 +3,16 @@ import PeekTokenIterator from "./PeekTokenIterator";
 import Expr from "./ast/Expr";
 import Scalar from "./ast/Scalar";
 import ASTNodeTypes from "./ast/ASTNodeTypes";
+import Factor from "./ast/Factor";
+import ParseException from "./ParseException";
 
 export default class SimpleParser {
     static parse(it: PeekTokenIterator): ASTNode {
         const expr = new Expr(null);
-        const scalar = new Scalar(expr, it);
+        const scalar = Factor.parse(it);
+        if (scalar == null) {
+            throw new ParseException("parser exception")
+        }
         if (!it.hasNext()) {
             return scalar;
         }

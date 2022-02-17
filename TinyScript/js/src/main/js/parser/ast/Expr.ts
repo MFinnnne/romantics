@@ -6,11 +6,12 @@ import ASTNodeTypes from "./ASTNodeTypes";
 import TokenType from "../../lexer/TokenType";
 import Variable from "./Variable";
 import Scalar from "./Scalar";
+import Factor from "./Factor";
 
 export default class Expr extends ASTNode {
 
     constructor(parent: ASTNode | null) {
-        super(parent, null, null);
+        super(null, null);
 
     }
 
@@ -46,10 +47,10 @@ export default class Expr extends ASTNode {
             return null;
         }
         if (next.isVariable()) {
-            return new Variable(null, it);
+            return new Variable(next);
         }
         if (next.isScalar()) {
-            return new Scalar(null, it);
+            return Factor.parse(it);
         }
         return null;
     }

@@ -16,8 +16,10 @@ export default class Factor extends ASTNode {
     static parse(it: PeekTokenIterator): ASTNode | null {
         const token = it.peek();
         if (token?.isVariable()) {
+            it.next();
             return new Variable(token);
         } else if (token?.isScalar()) {
+            it.next();
             return new Factor(token);
         }
         return null;
