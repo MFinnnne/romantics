@@ -4,7 +4,7 @@ import ASTNodeTypes from "./ASTNodeTypes";
 
 export  default  class AssignStmt extends Stmt{
 
-    constructor(parent: ASTNode) {
-        super(parent, ASTNodeTypes.ASSIGN_STMT, "assign");
+    constructor() {
+        super( ASTNodeTypes.ASSIGN_STMT, "assign");
     }
 }

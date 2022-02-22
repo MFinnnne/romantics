@@ -1,12 +1,14 @@
-import Factor from "./Factor";
-import ASTNode from "./ASTNode";
+/// <reference path="./Factor.ts" />
+
 import ASTNodeTypes from "./ASTNodeTypes";
-import PeekTokenIterator from "../PeekTokenIterator";
 import Token from "../../lexer/Token";
+import Factor from "./Factor";
+
 
 export default class Scalar extends Factor {
 
-    constructor(token:Token) {
+    constructor(token: Token) {
         super(token);
+        this.type = ASTNodeTypes.SCALAR;
     }
 }

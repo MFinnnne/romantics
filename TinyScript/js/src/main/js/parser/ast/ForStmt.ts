@@ -4,7 +4,7 @@ import ASTNodeTypes from "./ASTNodeTypes";
 
 export  default  class ForStmt extends Stmt{
 
-    constructor(parent: ASTNode) {
-        super(parent,ASTNodeTypes.FOR_STMT ,"for" );
+    constructor() {
+        super(ASTNodeTypes.FOR_STMT ,"for" );
     }
 }

@@ -36,6 +36,7 @@ describe("parser expr test", () => {
 
     test("simple 5",()=>{
         const expr3 = createExpr("(1*2!=7)==3!=4*5+6");
+        console.log(ParserUtils.toPostfixExpression(expr3));
         expect("1 2 * 7 != 3 4 5 * 6 + != ==").toEqual(ParserUtils.toPostfixExpression(expr3));
     })
 })

@@ -3,7 +3,7 @@ import ASTNodeTypes from "../ast/ASTNodeTypes";
 
 export default class ParserUtils {
     static toPostfixExpression(node: ASTNode | null): string | undefined {
-        if (node==null){
+        if (node == null) {
             return "";
         }
         let leftStr: string = "";

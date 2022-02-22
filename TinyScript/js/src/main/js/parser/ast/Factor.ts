@@ -1,9 +1,7 @@
 import ASTNode from "./ASTNode";
-import ASTNodeTypes from "./ASTNodeTypes";
 import Token from "../../lexer/Token";
 import PeekTokenIterator from "../PeekTokenIterator";
-import TokenType from "../../lexer/TokenType";
-import Variable from "./Variable";
+
 
 export default class Factor extends ASTNode {
 
@@ -14,14 +12,21 @@ export default class Factor extends ASTNode {
     }
 
     static parse(it: PeekTokenIterator): ASTNode | null {
-        const token = it.peek();
-        if (token?.isVariable()) {
-            it.next();
-            return new Variable(token);
-        } else if (token?.isScalar()) {
-            it.next();
-            return new Factor(token);
-        }
+        let scalarPromise = import('./Scalar');
+        let variablePromise = import('./Variable');
+        Promise.all([scalarPromise, variablePromise]).then(([Scalar, Variable]) => {
+            const token = it.peek();
+            if (token?.isVariable()) {
+                it.next();
+                return new Variable.default(token);
+
+            } else if (token?.isScalar()) {
+                it.next();
+                return new Scalar.default(token);
+            }
+            return null;
+        });
         return null;
+
     }
 }

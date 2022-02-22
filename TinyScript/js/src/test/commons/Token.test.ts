@@ -4,7 +4,7 @@ import Token from "../../main/js/lexer/Token";
 import TokenType from "../../main/js/lexer/TokenType";
 import * as assert from "assert";
 
-function assertToken(token:any, value:any, type:any) {
+function assertToken(token: any, value: any, type: any) {
     assert.equal(token.value, value)
     assert.equal(token.type, type)
 }
@@ -31,9 +31,9 @@ describe("test token", () => {
         const peekIterators: PeekIterator<string>[] = tests.map(item => {
             return new PeekIterator<string>(arrayToGenerator([...item]))
         });
-        for (const peekIterator of peekIterators) {
+        for (const [index, peekIterator] of peekIterators.entries()) {
             const token2 = Token.makeString(peekIterator);
-           assertToken(token2,,TokenType.STRING);
+            assertToken(token2, tests[index], TokenType.STRING);
         }
     })
 
@@ -74,10 +74,10 @@ describe("test token", () => {
             "20",
             "1231.1231x"
         ];
-        const results: string[] = ["10","0", "0.21", "21", "2.11", "21", "-1", "20", "1231.1231"];
+        const results: string[] = ["10", "0", "0.21", "21", "2.11", "21", "-1", "20", "1231.1231"];
         let i: number = 0;
         for (const test of tests) {
-            const iterator: PeekIterator<string> = new PeekIterator<string>(arrayToGenerator([...test]),'\0');
+            const iterator: PeekIterator<string> = new PeekIterator<string>(arrayToGenerator([...test]), '\0');
             let token3 = Token.makeNumber(iterator);
             expect(token3.value).toEqual(results[i++]);
         }
