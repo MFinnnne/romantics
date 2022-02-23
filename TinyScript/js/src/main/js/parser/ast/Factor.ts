@@ -12,21 +12,18 @@ export default class Factor extends ASTNode {
     }
 
     static parse(it: PeekTokenIterator): ASTNode | null {
-        let scalarPromise = import('./Scalar');
-        let variablePromise = import('./Variable');
-        Promise.all([scalarPromise, variablePromise]).then(([Scalar, Variable]) => {
-            const token = it.peek();
-            if (token?.isVariable()) {
-                it.next();
-                return new Variable.default(token);
 
-            } else if (token?.isScalar()) {
-                it.next();
-                return new Scalar.default(token);
-            }
-            return null;
-        });
+        const {Scalar, Variable} = require('./index')
+
+        const token = it.peek();
+        if (token?.isVariable()) {
+            it.next();
+            return new Variable.default(token);
+
+        } else if (token?.isScalar()) {
+            it.next();
+            return new Scalar.default(token);
+        }
         return null;
-
     }
 }
