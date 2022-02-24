@@ -9,7 +9,7 @@ export default class PeekTokenIterator extends PeekIterator<Token> {
 
     }
 
-    nextMatch(value: string | TokenType) {
+    nextMatch(value: string | TokenType): Token | null {
         const token = this.next();
         if (token && typeof value === "string") {
             if (token.value !== value) {

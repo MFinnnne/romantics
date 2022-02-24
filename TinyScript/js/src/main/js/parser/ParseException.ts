@@ -5,7 +5,7 @@ export default class ParseException extends Error {
         super(msg);
     }
 
-    static fromToken(token: Token) {
-        return new ParseException(`Syntax Error, unexpected token ${token.value}`)
+    static fromToken(token: Token | null) {
+        return new ParseException(`Syntax Error, unexpected token ${token?.value}`)
     }
 }
