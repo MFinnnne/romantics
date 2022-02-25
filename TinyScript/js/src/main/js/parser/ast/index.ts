@@ -8,46 +8,50 @@ import ForStmt from "./ForStmt";
 import FunctionDefineStmt from "./FunctionDefineStmt";
 import Scalar from "./Scalar";
 import Variable from "./Variable";
+import Block from "./Block";
 
 module.exports = {
-    get AssignStmt(): Required<AssignStmt> {
-        return require("./AssignStmt")
+    get AssignStmt(): AssignStmt {
+        return require("./AssignStmt").default;
     },
 
-    get Stmt(): Required<Stmt> {
-        return require("./Stmt")
+    get Stmt(): Stmt {
+        return require("./Stmt").default;
     },
 
-    get DeclareStmt(): Required<DeclareStmt> {
-        return require("./DeclareStmt")
+    get DeclareStmt(): DeclareStmt {
+        return require("./DeclareStmt").default;
     },
 
-    get IfStmt(): Required<IfStmt> {
-        return require("./IfStmt")
+    get IfStmt(): IfStmt {
+        return require("./IfStmt").default;
     },
 
-    get Expr(): Required<Expr> {
-        return require("./Expr")
-    }
-    ,
-
-    get Factor(): Required<Factor> {
-        return require("./Factor")
+    get Expr(): Expr {
+        return require("./Expr").default;
     },
 
-    get FotStmt(): Required<ForStmt> {
-        return require("./ForStmt")
+    get Factor(): Factor {
+        return require("./Factor").default;
     },
 
-    get FunctionDefineStmt(): Required<FunctionDefineStmt> {
-        return require("./FunctionDefineStmt")
+    get FotStmt(): ForStmt {
+        return require("./ForStmt").default;
     },
 
-    get Scalar(): Required<Scalar> {
-        return require("./Scalar")
+    get FunctionDefineStmt(): FunctionDefineStmt {
+        return require("./FunctionDefineStmt").default;
     },
 
-    get Variable(): Required<Variable> {
-        return require("./Variable")
+    get Scalar(): Scalar {
+        return require("./Scalar").default;
+    },
+
+    get Variable(): Variable {
+        return require("./Variable").default;
+    },
+
+    get Block(): Block {
+        return require("./Block").default;
     }
 }

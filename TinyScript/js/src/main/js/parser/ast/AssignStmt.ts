@@ -9,17 +9,17 @@ export default class AssignStmt extends Stmt {
         super(ASTNodeTypes.ASSIGN_STMT, "assign");
     }
 
-    static parser(it: PeekTokenIterator):AssignStmt {
+    static parse(it: PeekTokenIterator):AssignStmt {
         const {Factor, Expr} = require('./index');
         const assign = new AssignStmt();
         const tkn = it.peek();
-        const factor = Factor.parser(it);
+        const factor = Factor.parse(it);
         if (factor == null && tkn != null) {
             throw ParseException.fromToken(tkn);
         }
         assign.addChild(factor);
         const lexeme = it.nextMatch('=');
-        const expr = Expr.parser(it);
+        const expr = Expr.parse(it);
         assign.addChild(expr);
         assign.lexeme = lexeme;
         return assign;

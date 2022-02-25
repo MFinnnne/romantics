@@ -9,12 +9,13 @@ export default class ParserUtils {
         let leftStr: string = "";
         let right: string = "";
         switch (node.type) {
+            case ASTNodeTypes.DECLARE_STMT:
+            case ASTNodeTypes.ASSIGN_STMT:
             case ASTNodeTypes.BINARY_EXPR:
                 leftStr = ParserUtils.toPostfixExpression(node.children[0]) ?? "";
                 right = ParserUtils.toPostfixExpression(node.children[1]) ?? "";
                 return leftStr + " " + right + " " + node.lexeme?.value ?? " ";
             case ASTNodeTypes.VARIABLE:
-
             case ASTNodeTypes.SCALAR:
                 return node.lexeme?.value ?? "";
             default:

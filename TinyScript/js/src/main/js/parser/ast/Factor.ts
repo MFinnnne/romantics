@@ -18,11 +18,11 @@ export default class Factor extends ASTNode {
         const token = it.peek();
         if (token?.isVariable()) {
             it.next();
-            return new Variable.default(token);
+            return new Variable(token);
 
         } else if (token?.isScalar()) {
             it.next();
-            return new Scalar.default(token);
+            return new Scalar(token);
         }
         return null;
     }
