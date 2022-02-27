@@ -19,7 +19,6 @@ export default class Factor extends ASTNode {
         if (token?.isVariable()) {
             it.next();
             return new Variable(token);
-
         } else if (token?.isScalar()) {
             it.next();
             return new Scalar(token);

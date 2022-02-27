@@ -19,7 +19,7 @@ export default class Expr extends ASTNode {
 
 
     private static E(it: PeekTokenIterator, k: number): ASTNode | null {
-        if (k < Expr.TABLE.table.length-1) {
+        if (k < Expr.TABLE.table.length - 1) {
             return Expr.combine(it, () => this.E(it, k + 1), () => this.E_(it, k))
         } else {
 
@@ -47,10 +47,12 @@ export default class Expr extends ASTNode {
             return null;
         }
         if (next.isVariable()) {
+            it.next();
             return new Variable(next);
         }
         if (next.isScalar()) {
-            return Factor.parse(it);
+            it.next();
+            return new Scalar(next);
         }
         return null;
     }

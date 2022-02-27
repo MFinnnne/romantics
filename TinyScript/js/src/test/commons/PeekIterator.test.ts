@@ -37,9 +37,9 @@ describe("test PeekIterator", () => {
         }
     })
 
-    test("test peek and next",()=>{
+    test("test peek and next", () => {
         const data = 'abcde'
-        const it = new PeekIterator(arrayToGenerator([...data]),'\0')
+        const it = new PeekIterator(arrayToGenerator([...data]), '\0')
         expect(it.next()).toEqual('a')
         expect(it.next()).toEqual('b')
         expect(it.next()).toEqual('c')
@@ -47,5 +47,20 @@ describe("test PeekIterator", () => {
         expect(it.next()).toEqual('d')
         expect(it.next()).toEqual('e')
         expect(it.next()).toEqual('\0');
+    })
+
+
+    test("test next,peek and putBack", () => {
+        const data = 'abcde'
+        const it = new PeekIterator(arrayToGenerator([...data]))
+        expect(it.next()).toEqual('a')
+        expect(it.next()).toEqual('b')
+        expect(it.next()).toEqual('c')
+        expect(it.next()).toEqual('d')
+        expect(it.next()).toEqual('e')
+        expect(it.peek()).toEqual(null);
+        it.putBack();
+        expect(it.next()).toEqual('e');
+
     })
 })

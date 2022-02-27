@@ -23,7 +23,7 @@ export default class PeekIterator<T> {
             return this.stackPutBacks.tail.data
         }
         const next: T | null = this.next();
-        this.putBack()
+        next&&this.putBack()
         return next??null;
     }
 

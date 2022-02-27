@@ -16,7 +16,7 @@ export default class Stmt extends ASTNode {
             throw new ParseException("unexpected token");
         }
         const tkn = it.next();
-        const lookahead = it.next();
+        const lookahead = it.peek();
         it.putBack();
         if (tkn?.isVariable() && lookahead?.value === '=') {
             return AssignStmt.parse(it);

@@ -13,7 +13,23 @@ export default class IfStmt extends Stmt {
         super(ASTNodeTypes.IF_STMT, "if");
     }
 
-    static parse(it: PeekTokenIterator): ASTNode {
+    public getExpr(): ASTNode {
+        const children = this.getChildren(0);
+        if (children == null) {
+            throw new ParseException("unexpected expression");
+        }
+        return children;
+    }
+
+    public getBlock(): ASTNode {
+        const children = this.getChildren(1);
+        if (children == null) {
+            throw new ParseException("unexpected block");
+        }
+        return children;
+    }
+
+    static parse(it: PeekTokenIterator): IfStmt {
         const ifStmt = new IfStmt();
         it.nextMatch("if");
         it.nextMatch("(");
@@ -33,9 +49,9 @@ export default class IfStmt extends Stmt {
     }
 
     // Tail -> else {Block} | else IFStmt | ε
-    static parseTail(it: PeekTokenIterator): ASTNode {
+    static parseTail(it: PeekTokenIterator): ASTNode | null {
         if (!it.hasNext() || it.peek()?.value !== "else") {
-            throw new ParseException("unknown exception");
+            return null;
         }
         it.nextMatch("else");
         const lookahead = it.peek();
@@ -43,7 +59,7 @@ export default class IfStmt extends Stmt {
             return Block.parse(it);
         } else if (lookahead?.value === "if") {
             return IfStmt.parse(it);
-        }  else {
+        } else {
             throw new ParseException("unknown exception");
         }
     }
