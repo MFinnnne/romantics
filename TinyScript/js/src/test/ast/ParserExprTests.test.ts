@@ -39,5 +39,6 @@ describe("parser expr test", () => {
         console.log(ParserUtils.toPostfixExpression(expr3));
         expect("1 2 * 7 != 3 4 5 * 6 + != ==").toEqual(ParserUtils.toPostfixExpression(expr3));
     })
+
 })
 

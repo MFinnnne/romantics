@@ -47,10 +47,7 @@ export default class ASTNode {
      * @param index
      * @return number
      */
-    public getChildren(index: number | null): ASTNode | null {
-        if (index == null) {
-            return null
-        }
+    public getChildren(index: number): ASTNode {
         return this._children[index];
     }
 

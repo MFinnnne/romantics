@@ -6,7 +6,7 @@ import ParseException from "../ParseException";
 export default class Stmt extends ASTNode {
 
     constructor(types: ASTNodeTypes | null, label: string | null) {
-        super(types, label);
+        super(ASTNodeTypes.FUNCTION_DECLARE_STMT, "func");
     }
 
 

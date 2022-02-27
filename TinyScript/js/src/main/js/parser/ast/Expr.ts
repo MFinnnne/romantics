@@ -6,7 +6,6 @@ import ASTNodeTypes from "./ASTNodeTypes";
 import TokenType from "../../lexer/TokenType";
 import Variable from "./Variable";
 import Scalar from "./Scalar";
-import Factor from "./Factor";
 
 export default class Expr extends ASTNode {
 
