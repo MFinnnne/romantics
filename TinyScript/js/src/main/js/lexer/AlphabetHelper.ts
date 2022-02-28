@@ -1,9 +1,9 @@
 export default class AlphabetHelper {
 
-    private static ptnLetter: RegExp = /^[a-zA-Z]$/
-    private static ptnNumber: RegExp = /^[0-9]$/
-    private static ptnLiteral: RegExp = /^[_a-zA-Z0-9]$/
-    private static operator: RegExp = /^[+\-*/><=!&|^%,;]$/
+    private static ptnLetter = /^[a-zA-Z]$/
+    private static ptnNumber = /^[0-9]$/
+    private static ptnLiteral = /^[_a-zA-Z0-9]$/
+    private static operator = /^[+\-*/><=!&|^%,;]$/
 
     static isLetter(c: string): boolean {
         return AlphabetHelper.ptnLetter.test(c);

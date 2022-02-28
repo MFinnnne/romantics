@@ -7,7 +7,7 @@ import Expr from "./Expr";
 
 export default class DeclareStmt extends Stmt {
 
-    constructor(types?: ASTNodeTypes | null, label?: string | null) {
+    constructor() {
         super(ASTNodeTypes.DECLARE_STMT, "declare");
     }
 

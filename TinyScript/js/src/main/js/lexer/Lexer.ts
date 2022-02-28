@@ -9,6 +9,7 @@ import Token from "./Token";
 import PeekIterator from "../commons/PeekIterator";
 import TokenType from "./TokenType";
 import AlphabetHelper from "./AlphabetHelper";
+import LexicalException from "./LexicalException";
 
 export default class Lexer {
 
@@ -34,11 +35,12 @@ export default class Lexer {
             // 删除注释
             if (next === '/') {
                 if (lookahead === '/') {
-                    while (it.hasNext() && it.next() != '\n') {
+                    while (it.hasNext() && it.peek() != '\n') {
+                        it.next();
                     }
                 } else if (lookahead === '*') {
                     it.next();
-                    let valid: boolean = false;
+                    let valid = false;
                     while (it.hasNext()) {
                         const c: string | null = it.next();
                         if (c !== '*' && it.peek() === '/') {
@@ -47,7 +49,7 @@ export default class Lexer {
                             break;
                         }
                     }
-                    throw new LexicalException('unexpected error');
+                    throw LexicalException.fromChar('unexpected char ' + next);
                 }
                 continue;
             }

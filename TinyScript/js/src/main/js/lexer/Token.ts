@@ -41,7 +41,7 @@ export default class Token {
     }
 
     static makeVarOrKeyword(it: PeekIterator<string>): Token {
-        let s: string = "";
+        let s = "";
         while (it.hasNext()) {
             const lookahead: string | null = it.peek();
             if (lookahead) {
@@ -64,7 +64,7 @@ export default class Token {
 
     static makeString(it: PeekIterator<string>): Token {
         let s = "";
-        let state: number = 0;
+        let state = 0;
         while (it.hasNext()) {
             const c: string | null = it.next();
             if (c == null) {
@@ -104,7 +104,7 @@ export default class Token {
     }
 
     static makeOp(it: PeekIterator<string>): Token {
-        let state: number = 0;
+        let state = 0;
         while (it.hasNext()) {
             const lookahead: string | null = it.next();
             if (lookahead == null) {
@@ -262,7 +262,7 @@ export default class Token {
 
 
     static makeNumber(it: PeekIterator<string>): Token {
-        let state: number = 0;
+        let state = 0;
         let res = "";
         while (it.hasNext()) {
             const lookahead: string | null = it.peek();

@@ -3,8 +3,9 @@ import arrayToGenerator from "../../main/js/commons/ArrayToGenerator";
 import Token from "../../main/js/lexer/Token";
 import TokenType from "../../main/js/lexer/TokenType";
 import * as assert from "assert";
+import ASTNodeTypes from "../../main/js/parser/ast/ASTNodeTypes";
 
-function assertToken(token: any, value: any, type: any) {
+function assertToken(token:Token, value: string, type: ASTNodeTypes) {
     assert.equal(token.value, value)
     assert.equal(token.type, type)
 }
@@ -52,7 +53,7 @@ describe("test token", () => {
             "^=11",
             "%7"
         ];
-        let i: number = 0;
+        let i = 0;
         const results: string[] = ["+", "++", "-", "--", "/=", "=", "==", "&=", "&", "||", "^=", "%"];
         for (const test of tests) {
             const iterator: PeekIterator<string> = new PeekIterator<string>(arrayToGenerator([...test]));
@@ -75,10 +76,10 @@ describe("test token", () => {
             "1231.1231x"
         ];
         const results: string[] = ["10", "0", "0.21", "21", "2.11", "21", "-1", "20", "1231.1231"];
-        let i: number = 0;
+        let i = 0;
         for (const test of tests) {
             const iterator: PeekIterator<string> = new PeekIterator<string>(arrayToGenerator([...test]), '\0');
-            let token3 = Token.makeNumber(iterator);
+            const token3 = Token.makeNumber(iterator);
             expect(token3.value).toEqual(results[i++]);
         }
     })

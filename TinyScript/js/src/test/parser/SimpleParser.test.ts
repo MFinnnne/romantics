@@ -7,7 +7,7 @@ import ASTNode from "../../main/js/parser/ast/ASTNode";
 
 describe("test simple parser", () => {
     test("test 1+2+3+4", () => {
-        const source: string = "1+2+3+4";
+        const source = "1+2+3+4";
         const lexer: Lexer = new Lexer();
         const tokens: Token[] = lexer.analyse(arrayToGenerator([...source]));
         const iterator = new PeekTokenIterator(arrayToGenerator(tokens));

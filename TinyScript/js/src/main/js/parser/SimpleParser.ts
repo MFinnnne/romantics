@@ -1,7 +1,6 @@
 import ASTNode from "./ast/ASTNode";
 import PeekTokenIterator from "./PeekTokenIterator";
 import Expr from "./ast/Expr";
-import Scalar from "./ast/Scalar";
 import ASTNodeTypes from "./ast/ASTNodeTypes";
 import Factor from "./ast/Factor";
 import ParseException from "./ParseException";

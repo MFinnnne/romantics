@@ -21,21 +21,21 @@ export default class ASTNode {
         return this._lexeme ?? null;
     }
 
-    get label(): string | null {
-        return this._label ?? null;
-    }
-
-    get type(): ASTNodeTypes | null {
-        return this._type ?? null;
-    }
 
     set lexeme(value: Token | null) {
         this._lexeme = value;
     }
 
+    get label(): string | null {
+        return this._label ?? null;
+    }
 
     set label(value: string | null) {
         this._label = value;
+    }
+
+    get type(): ASTNodeTypes | null {
+        return this._type ?? null;
     }
 
     set type(value: ASTNodeTypes | null) {

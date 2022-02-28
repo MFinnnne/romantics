@@ -1,4 +1,3 @@
-/// <reference path="./Factor.ts" />
 
 import ASTNodeTypes from "./ASTNodeTypes";
 import Token from "../../lexer/Token";

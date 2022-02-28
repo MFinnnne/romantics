@@ -6,8 +6,8 @@ export default class ParserUtils {
         if (node == null) {
             return "";
         }
-        let leftStr: string = "";
-        let right: string = "";
+        let leftStr = "";
+        let right = "";
         switch (node.type) {
             case ASTNodeTypes.DECLARE_STMT:
             case ASTNodeTypes.ASSIGN_STMT:
