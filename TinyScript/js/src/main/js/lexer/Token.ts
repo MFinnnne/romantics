@@ -2,6 +2,7 @@ import TokenType from './TokenType';
 import PeekIterator from "../commons/PeekIterator";
 import AlphabetHelper from "./AlphabetHelper";
 import KeyWords from "./KeyWords";
+import LexicalException from "./LexicalException";
 
 /*
  * @Author: MFine
@@ -76,7 +77,7 @@ export default class Token {
                         s += c;
                         state = 1;
                     }
-                    if (c == '\"') {
+                    if (c == '"') {
                         s += c;
                         state = 2;
                     }

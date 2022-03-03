@@ -5,7 +5,7 @@ import TokenType from "../../main/js/lexer/TokenType";
 import * as assert from "assert";
 import ASTNodeTypes from "../../main/js/parser/ast/ASTNodeTypes";
 
-function assertToken(token:Token, value: string, type: ASTNodeTypes) {
+function assertToken(token:Token, value: string, type: TokenType) {
     assert.equal(token.value, value)
     assert.equal(token.type, type)
 }

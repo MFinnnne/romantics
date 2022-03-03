@@ -43,18 +43,20 @@ export default class Lexer {
                     let valid = false;
                     while (it.hasNext()) {
                         const c: string | null = it.next();
-                        if (c !== '*' && it.peek() === '/') {
+                        if (c === '*' && it.peek() === '/') {
                             it.next()
                             valid = true;
                             break;
                         }
                     }
-                    throw LexicalException.fromChar('unexpected char ' + next);
+                    if (!valid){
+                        throw new LexicalException('comment not match');
+                    }
                 }
                 continue;
             }
 
-            if (next === '\"' || next === '\'') {
+            if (next === '"' || next === '\'') {
                 it.putBack();
                 tokens.push(Token.makeString(it));
                 continue;
