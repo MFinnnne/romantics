@@ -4,6 +4,8 @@ import ASTNodeTypes from "./ASTNodeTypes";
 import Variable from "./Variable";
 import ParseException from "../ParseException";
 import PeekTokenIterator from "../PeekTokenIterator";
+import FunctionArgs from "./FunctionArgs";
+import TokenType from "../../lexer/TokenType";
 
 export default class FunctionDefineStmt extends Stmt {
 
@@ -38,14 +40,25 @@ export default class FunctionDefineStmt extends Stmt {
 
 
     static parse(it: PeekTokenIterator): FunctionDefineStmt {
-        const {Factor} = require('./index')
+        const {Factor, Block} = require('./index')
         const functionDefineStmt = new FunctionDefineStmt();
         it.nextMatch("func");
-        const funcVar = Factor.parse(it);
+        const funcVar:Variable = Factor.parse(it);
         if (funcVar == null) {
             throw new ParseException("function parse exception,can not find function name");
         }
         functionDefineStmt.addChild(funcVar);
+        it.nextMatch("(");
+        const functionArgs = FunctionArgs.parse(it);
+        funcVar.addChild(functionArgs)
+        it.nextMatch(")");
+        const returnType = it.nextMatch(TokenType.KEYWORD);
+        if (!returnType?.isType()) {
+           throw ParseException.fromToken(returnType);
+        }
+        funcVar.typeLexeme = returnType;
+        const blockStmt = Block.parse(it);
+        functionDefineStmt.addChild(blockStmt);
         return functionDefineStmt;
     }
 

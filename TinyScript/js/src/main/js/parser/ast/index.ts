@@ -9,6 +9,7 @@ import FunctionDefineStmt from "./FunctionDefineStmt";
 import Scalar from "./Scalar";
 import Variable from "./Variable";
 import Block from "./Block";
+import FunctionArgs from "./FunctionArgs";
 
 module.exports = {
     get AssignStmt(): AssignStmt {
@@ -53,5 +54,10 @@ module.exports = {
 
     get Block(): Block {
         return require("./Block").default;
+    },
+
+    get FunctionArgs(): FunctionArgs {
+        return require("./FunctionArgs").default;
     }
+
 }

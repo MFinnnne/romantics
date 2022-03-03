@@ -66,6 +66,13 @@ describe("stmt test", () => {
             expect(ParserUtils.toPostfixExpression(elseIfBlock?.getChildren(1))).toEqual("c 6 =")
         }
     });
+
+
+    it("should parse function stmt", () => {
+        const it = createTokenIt("function f(){}")
+        const stmt = DeclareStmt.parse(it);
+        expect(ParserUtils.toPostfixExpression(stmt)).toEqual("function")
+    })
 })
 
 function createTokenIt(src: string): PeekTokenIterator {

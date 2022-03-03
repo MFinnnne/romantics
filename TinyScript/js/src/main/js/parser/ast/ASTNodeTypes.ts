@@ -48,6 +48,8 @@ enum ASTNodeTypes {
      * 程序
      */
     PROGRAM,
+
+    FUCTION_ARGS,
 }
 
 export default ASTNodeTypes;

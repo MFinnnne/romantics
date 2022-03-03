@@ -32,6 +32,18 @@ export default class Token {
         return this._type == TokenType.VARIABLE;
     }
 
+    isType() {
+        let flag = false;
+        for (let tokenTypeKey in TokenType) {
+            if (tokenTypeKey == this._type + "") {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
+
     isScalar() {
         return (
             this._type == TokenType.INTEGER ||
