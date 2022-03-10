@@ -16,7 +16,7 @@ export default class PeekTokenIterator extends PeekIterator<Token> {
                 throw ParseException.fromToken(token)
             }
         } else {
-            if (token && token.type !== value) {
+            if (token && !token.isType()) {
                 throw ParseException.fromToken(token);
             }
         }

@@ -75,4 +75,9 @@ export default class ASTNode {
     set children(value: ASTNode[]) {
         this._children = value;
     }
+
+    public print(level: number = 0): void {
+        console.log(`${'\t'.repeat(level)}${this.label}`);
+        this.children.forEach(child => child.print(level + 1));
+    }
 }

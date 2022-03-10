@@ -6,7 +6,7 @@ import Variable from "./Variable";
 export  default class FunctionArgs extends ASTNode {
 
     constructor() {
-        super(ASTNodeTypes.FUCTION_ARGS, 'args');
+        super(ASTNodeTypes.FUNCTION_ARGS, 'args');
     }
 
     static parse(it: PeekTokenIterator): FunctionArgs {
@@ -19,6 +19,8 @@ export  default class FunctionArgs extends ASTNode {
             variable.typeLexeme = type;
             if (it.peek()?.value !== ')') {
                 it.nextMatch(',');
+            }else {
+                break;
             }
         }
         return functionArgs;

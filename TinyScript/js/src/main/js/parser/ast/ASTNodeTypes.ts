@@ -49,7 +49,8 @@ enum ASTNodeTypes {
      */
     PROGRAM,
 
-    FUCTION_ARGS,
+    FUNCTION_ARGS,
+    RETURN_STMT,
 }
 
 export default ASTNodeTypes;

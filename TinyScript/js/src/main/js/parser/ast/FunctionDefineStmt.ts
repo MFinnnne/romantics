@@ -6,6 +6,8 @@ import ParseException from "../ParseException";
 import PeekTokenIterator from "../PeekTokenIterator";
 import FunctionArgs from "./FunctionArgs";
 import TokenType from "../../lexer/TokenType";
+import Token from "../../lexer/Token";
+import Block from "./Block";
 
 export default class FunctionDefineStmt extends Stmt {
 
@@ -38,12 +40,25 @@ export default class FunctionDefineStmt extends Stmt {
 
     }
 
+    public getArgs(): FunctionArgs {
+        return this.getChildren(1) as FunctionArgs;
+    }
+
+    public getFuncType(): string {
+         const value = (this.getChildren(0) as Variable).typeLexeme?.value;
+         if (value == null) {
+             throw new Error("Function return type is not defined");
+         }
+         return value;
+    }
+
+
 
     static parse(it: PeekTokenIterator): FunctionDefineStmt {
         const {Factor, Block} = require('./index')
         const functionDefineStmt = new FunctionDefineStmt();
         it.nextMatch("func");
-        const funcVar:Variable = Factor.parse(it);
+        const funcVar: Variable = Factor.parse(it);
         if (funcVar == null) {
             throw new ParseException("function parse exception,can not find function name");
         }
@@ -54,7 +69,7 @@ export default class FunctionDefineStmt extends Stmt {
         it.nextMatch(")");
         const returnType = it.nextMatch(TokenType.KEYWORD);
         if (!returnType?.isType()) {
-           throw ParseException.fromToken(returnType);
+            throw ParseException.fromToken(returnType);
         }
         funcVar.typeLexeme = returnType;
         const blockStmt = Block.parse(it);

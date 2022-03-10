@@ -10,6 +10,9 @@ import PeekIterator from "../commons/PeekIterator";
 import TokenType from "./TokenType";
 import AlphabetHelper from "./AlphabetHelper";
 import LexicalException from "./LexicalException";
+import fs from "fs";
+import arrayToGenerator from "../commons/ArrayToGenerator";
+import PeekTokenIterator from "../parser/PeekTokenIterator";
 
 export default class Lexer {
 
@@ -29,7 +32,7 @@ export default class Lexer {
             if (lookahead == null) {
                 lookahead = '\0';
             }
-            if (next === ' ' || next === '\n') {
+            if (next === ' ' || next === '\n' || next === '\r' || next === '\t') {
                 continue;
             }
             // 删除注释
@@ -49,7 +52,7 @@ export default class Lexer {
                             break;
                         }
                     }
-                    if (!valid){
+                    if (!valid) {
                         throw new LexicalException('comment not match');
                     }
                 }
@@ -97,8 +100,14 @@ export default class Lexer {
                 continue
             }
             throw new LexicalException(next);
-
         }
         return tokens;
+    }
+
+    static fromFile(src: string): Iterator<Token> {
+        const content = fs.readFileSync(src, 'utf-8');
+        const lexer = new Lexer();
+        const iterator = arrayToGenerator([...content]);
+        return arrayToGenerator(lexer.analyse(iterator));
     }
 }

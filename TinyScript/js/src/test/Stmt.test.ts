@@ -4,6 +4,8 @@ import PeekTokenIterator from "../main/js/parser/PeekTokenIterator";
 import ParserUtils from "../main/js/parser/util/ParserUtils";
 import DeclareStmt from "../main/js/parser/ast/DeclareStmt";
 import IfStmt from "../main/js/parser/ast/IfStmt";
+import * as path from "path";
+import Stmt from "../main/js/parser/ast/Stmt";
 
 
 const {AssignStmt} = require('../main/js/parser/ast/index')
@@ -69,10 +71,11 @@ describe("stmt test", () => {
 
 
     it("should parse function stmt", () => {
-        const it = createTokenIt("function f(){}")
-        const stmt = DeclareStmt.parse(it);
-        expect(ParserUtils.toPostfixExpression(stmt)).toEqual("function")
+        const it = Lexer.fromFile(path.resolve(__dirname, "../../example/function.ts"));
+        const functionStmt = Stmt.parse(new PeekTokenIterator(it));
+        functionStmt?.print()
     })
+
 })
 
 function createTokenIt(src: string): PeekTokenIterator {

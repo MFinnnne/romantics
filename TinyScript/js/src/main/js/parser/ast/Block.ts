@@ -10,7 +10,7 @@ export default class Block extends Stmt {
     }
 
 
-    static parse(it: PeekTokenIterator): ASTNode {
+    static parse(it: PeekTokenIterator): Block {
         it.nextMatch("{");
         const block = new Block();
         let stmt = null;
