@@ -378,4 +378,8 @@ export default class Token {
     isOperator() {
         return this._type === TokenType.OPERATOR;
     }
+
+    isValue() {
+        return this.isVariable()|| this.isScalar();
+    }
 }

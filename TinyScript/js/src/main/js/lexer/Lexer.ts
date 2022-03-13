@@ -87,7 +87,7 @@ export default class Lexer {
 
             if ((next === '+' || next === '-' || next === '.') && AlphabetHelper.isNumber(lookahead)) {
                 const end: Token = tokens[tokens.length - 1];
-                if (end == null || !end.isNumber() || end.isOperator()) {
+                if (end == null || !end.isValue()) {
                     it.putBack();
                     tokens.push(Token.makeNumber(it));
                     continue
@@ -108,6 +108,7 @@ export default class Lexer {
         const content = fs.readFileSync(src, 'utf-8');
         const lexer = new Lexer();
         const iterator = arrayToGenerator([...content]);
-        return arrayToGenerator(lexer.analyse(iterator));
+        const tokens = lexer.analyse(iterator);
+        return arrayToGenerator(tokens);
     }
 }

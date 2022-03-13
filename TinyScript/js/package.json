@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "jest": {
-    "verbose": true
-  },
   "scripts": {
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "jest": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.17.2",

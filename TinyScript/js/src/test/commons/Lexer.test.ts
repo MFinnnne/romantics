@@ -72,8 +72,7 @@ describe("test lexer", () => {
         const source = "//123123213\n" +
             "(a+b)^100.12==+100-20" +
             "";
-        const tokens = lexer.analyse(arrayToGenerator([...source]));
-        expect(tokens.length).toEqual(11);
+        const tokens = lexer.analyse(arrayToGenerator([...source]));expect(tokens.length).toEqual(11);
         assertToken(tokens[0], "(", TokenType.BRACKET);
         assertToken(tokens[1], "a", TokenType.VARIABLE);
         assertToken(tokens[2], "+", TokenType.OPERATOR);
@@ -94,9 +93,9 @@ describe("test lexer", () => {
             "dasdas\n" +
             "*/" +
             "(a+b)^100.12==+100-20" +
-            "";
+            "n-1";
         const tokens = lexer.analyse(arrayToGenerator([...source]));
-        expect(tokens.length).toEqual(11);
+        expect(tokens.length).toEqual(14);
         assertToken(tokens[0], "(", TokenType.BRACKET);
         assertToken(tokens[1], "a", TokenType.VARIABLE);
         assertToken(tokens[2], "+", TokenType.OPERATOR);
@@ -108,5 +107,8 @@ describe("test lexer", () => {
         assertToken(tokens[8], "+100", TokenType.INTEGER);
         assertToken(tokens[9], "-", TokenType.OPERATOR);
         assertToken(tokens[10], "20", TokenType.INTEGER);
+        assertToken(tokens[11], "n", TokenType.VARIABLE);
+        assertToken(tokens[12], "-", TokenType.OPERATOR);
+        assertToken(tokens[13], "1", TokenType.INTEGER);
     })
 })

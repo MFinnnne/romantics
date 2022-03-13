@@ -65,7 +65,7 @@ export default class FunctionDefineStmt extends Stmt {
         functionDefineStmt.addChild(funcVar);
         it.nextMatch("(");
         const functionArgs = FunctionArgs.parse(it);
-        funcVar.addChild(functionArgs)
+        functionDefineStmt.addChild(functionArgs)
         it.nextMatch(")");
         const returnType = it.nextMatch(TokenType.KEYWORD);
         if (!returnType?.isType()) {

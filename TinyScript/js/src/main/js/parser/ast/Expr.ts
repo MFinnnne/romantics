@@ -4,8 +4,7 @@ import {PriorityTable} from "./PriorityTable";
 import Token from "../../lexer/Token";
 import ASTNodeTypes from "./ASTNodeTypes";
 import TokenType from "../../lexer/TokenType";
-import Variable from "./Variable";
-import Scalar from "./Scalar";
+import Factor from "./Factor";
 
 export default class Expr extends ASTNode {
 
@@ -21,7 +20,6 @@ export default class Expr extends ASTNode {
         if (k < Expr.TABLE.table.length - 1) {
             return Expr.combine(it, () => this.E(it, k + 1), () => this.E_(it, k))
         } else {
-
             return Expr.race(it,
                 () => Expr.combine(it, () => Expr.F(it), () => Expr.E_(it, k)),
                 () => Expr.combine(it, () => Expr.U(it), () => Expr.E_(it, k))
@@ -41,19 +39,7 @@ export default class Expr extends ASTNode {
     }
 
     private static F(it: PeekTokenIterator): ASTNode | null {
-        const next = it.peek();
-        if (next == null) {
-            return null;
-        }
-        if (next.isVariable()) {
-            it.next();
-            return new Variable(next);
-        }
-        if (next.isScalar()) {
-            it.next();
-            return new Scalar(next);
-        }
-        return null;
+        return Factor.parse(it);
     }
 
     private static U(it: PeekTokenIterator): ASTNode | null {
@@ -63,7 +49,7 @@ export default class Expr extends ASTNode {
         }
         const value = peek.value;
         if (value == "(") {
-            it.next();
+            it.nextMatch("(");
             const e = Expr.E(it, 0);
             it.nextMatch(")");
             return e;
@@ -77,7 +63,6 @@ export default class Expr extends ASTNode {
             }
             return null;
         }
-
         return null;
     }
 

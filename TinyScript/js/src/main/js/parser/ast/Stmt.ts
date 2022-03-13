@@ -2,7 +2,6 @@ import ASTNode from "./ASTNode";
 import ASTNodeTypes from "./ASTNodeTypes";
 import PeekTokenIterator from "../PeekTokenIterator";
 import ParseException from "../ParseException";
-import Expr from "./Expr";
 
 export default class Stmt extends ASTNode {
 
@@ -11,8 +10,8 @@ export default class Stmt extends ASTNode {
     }
 
 
-    static parse(it: PeekTokenIterator): ASTNode | null {
-        const {AssignStmt, DeclareStmt, IfStmt, Block, FunctionDefineStmt,ReturnStmt} = require('./index');
+    static parse(it: PeekTokenIterator): Stmt | null {
+        const {AssignStmt, DeclareStmt, IfStmt, Block, FunctionDefineStmt, ReturnStmt,Expr} = require('./index');
         if (!it.hasNext()) {
             throw new ParseException("unexpected token");
         }
@@ -29,10 +28,9 @@ export default class Stmt extends ASTNode {
             return Block.parse(it);
         } else if (tkn?.value === "func") {
             return FunctionDefineStmt.parse(it);
-        }else if (tkn?.value==="return"){
+        } else if (tkn?.value === "return") {
             return ReturnStmt.parse(it);
-        }
-        else {
+        } else {
             return Expr.parse(it);
         }
     }

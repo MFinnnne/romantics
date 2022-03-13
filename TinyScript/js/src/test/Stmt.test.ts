@@ -6,6 +6,10 @@ import DeclareStmt from "../main/js/parser/ast/DeclareStmt";
 import IfStmt from "../main/js/parser/ast/IfStmt";
 import * as path from "path";
 import Stmt from "../main/js/parser/ast/Stmt";
+import FunctionDefineStmt from "../main/js/parser/ast/FunctionDefineStmt";
+import ASTNodeTypes from "../main/js/parser/ast/ASTNodeTypes";
+import Variable from "../main/js/parser/ast/Variable";
+import ReturnStmt from "../main/js/parser/ast/ReturnStmt";
 
 
 const {AssignStmt} = require('../main/js/parser/ast/index')
@@ -72,8 +76,44 @@ describe("stmt test", () => {
 
     it("should parse function stmt", () => {
         const it = Lexer.fromFile(path.resolve(__dirname, "../../example/function.ts"));
-        const functionStmt = Stmt.parse(new PeekTokenIterator(it));
-        functionStmt?.print()
+        const functionStmt = Stmt.parse(new PeekTokenIterator(it)) as FunctionDefineStmt;
+        functionStmt?.print();
+        const args = functionStmt.getArgs();
+        expect(args.children.length).toEqual(2);
+        const funcVar1 = args.children[0] as Variable;
+        expect(funcVar1.typeLexeme?.value).toEqual("int");
+        expect(funcVar1.lexeme?.value).toEqual("a");
+        const funcVar2 = args.children[1] as Variable;
+        expect(funcVar2.lexeme?.value).toEqual("b");
+        expect(funcVar2.typeLexeme?.value).toEqual("int");
+        const variables = functionStmt.getFunctionVariables();
+        expect(variables.lexeme?.value).toEqual('add');
+        expect(variables.typeLexeme?.value).toEqual('int');
+        const block = functionStmt.getBlock();
+        const returnStmt = block.getChildren(0) as ReturnStmt;
+        expect(ParserUtils.toPostfixExpression(returnStmt.getChildren(0))).toEqual("a b +");
+    })
+
+
+    it("should parse recursion function stmt", () => {
+        const it = Lexer.fromFile(path.resolve(__dirname, "../../example/recursion.ts"));
+        const tokenIterator = new PeekTokenIterator(it);
+        const functionStmt = Stmt.parse(tokenIterator) as FunctionDefineStmt;
+        functionStmt?.print();
+        // const args = functionStmt.getArgs();
+        // expect(args.children.length).toEqual(2);
+        // const funcVar1 = args.children[0] as Variable;
+        // expect(funcVar1.typeLexeme?.value).toEqual("int");
+        // expect(funcVar1.lexeme?.value).toEqual("a");
+        // const funcVar2 = args.children[1] as Variable;
+        // expect(funcVar2.lexeme?.value).toEqual("b");
+        // expect(funcVar2.typeLexeme?.value).toEqual("int");
+        // const variables = functionStmt.getFunctionVariables();
+        // expect(variables.lexeme?.value).toEqual('add');
+        // expect(variables.typeLexeme?.value).toEqual('int');
+        // const block = functionStmt.getBlock();
+        // const returnStmt = block.getChildren(0) as ReturnStmt;
+        // expect(ParserUtils.toPostfixExpression(returnStmt.getChildren(0))).toEqual("a b +");
     })
 
 })

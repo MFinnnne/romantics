@@ -1,7 +1,6 @@
 import Stmt from "./Stmt";
 import ASTNodeTypes from "./ASTNodeTypes";
 import PeekTokenIterator from "../PeekTokenIterator";
-import Expr from "./Expr";
 
 export  default  class ReturnStmt extends Stmt {
     constructor() {
@@ -9,10 +8,10 @@ export  default  class ReturnStmt extends Stmt {
     }
 
     static parse(it:PeekTokenIterator):ReturnStmt{
-        const {Expr} = require('./index')
+       const {Expr}  = require('./index')
         it.nextMatch("return");
         const stmt = new ReturnStmt();
-        const parse = Stmt.parse(it) as Expr;
+        const parse = Expr.parse(it);
         stmt.addChild(parse);
         return stmt;
     }
