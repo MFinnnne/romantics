@@ -25,7 +25,10 @@ public class ParserUtils {
             ptr.add(s);
         }
         String s = node.getLexeme() != null ? node.getLexeme().getValue() : "";
-        return String.join(" ", ptr) + s;
+        if (!s.isEmpty()) {
+            ptr.add(s);
+        }
+        return String.join(" ", ptr);
     }
 
     public static String toBFSString(ASTNode root, int max) {
@@ -36,9 +39,7 @@ public class ParserUtils {
         while (queue.size() > 0 && c++ < max) {
             var node = queue.poll();
             list.add(node.getLabel());
-            for (ASTNode child : node.getChildren()) {
-                queue.add(child);
-            }
+            queue.addAll(node.getChildren());
         }
         return String.join(" ", list);
     }

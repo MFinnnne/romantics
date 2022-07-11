@@ -75,7 +75,7 @@ public class Lexer {
             }
             if ((next == '+' || next == '-' || next == '.') && AlphabetHelper.isNumber(lookahead)) {
                 Token token = tokens.isEmpty()? null : tokens.get(tokens.size() - 1);
-                if (token == null || (!token.isNumber() && token.isOperator()&& !token.isVariable())) {
+                if (token == null || (!token.isNumber() && token.isOperator()&& !token.isVariable()) || token.isBracket()) {
                     iterator.putBack();
                     tokens.add(Token.makeNumber(iterator));
                     continue;

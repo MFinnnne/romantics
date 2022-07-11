@@ -46,6 +46,10 @@ public class Token {
         return this.value.equals("bool") || this.value.equals("int") || this.value.equals("float") || this.value.equals("void") || this.value.equals("string");
     }
 
+    public boolean isBracket(){
+        return this.type == TokenType.BRACKET;
+    }
+
     public static Token makeVarOrKeyword(PeekIterator<Character> it) {
 
         String s = "";
