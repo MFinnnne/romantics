@@ -10,13 +10,13 @@ import paser.util.PeekTokenIterator;
  * @date 2021/8/23 0:22
  **/
 public class DeclareStmt extends Stmt {
-    protected DeclareStmt(ASTNode parent) {
-        super(parent, ASTNodeTypes.DECLARE_STMT, "declare");
+    protected DeclareStmt() {
+        super(ASTNodeTypes.DECLARE_STMT, "declare");
     }
 
 
     public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {
-        DeclareStmt declareStmt = new DeclareStmt(parent);
+        DeclareStmt declareStmt = new DeclareStmt();
         it.nextMatch("var");
         Token tkn = it.peek();
         ASTNode factor = Factor.parse(parent, it);

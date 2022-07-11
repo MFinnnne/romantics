@@ -7,6 +7,6 @@ package paser.ast;
  **/
 public class ForStmt extends Stmt{
     protected ForStmt(ASTNode parent) {
-        super(parent, ASTNodeTypes.FOR_STMT,"for");
+        super(ASTNodeTypes.FOR_STMT,"for");
     }
 }

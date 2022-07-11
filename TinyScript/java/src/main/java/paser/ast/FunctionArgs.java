@@ -11,7 +11,7 @@ import paser.util.PeekTokenIterator;
  **/
 public class FunctionArgs extends ASTNode {
     public FunctionArgs(ASTNode parent) {
-        super(parent);
+        super();
         this.label = "args";
     }
 

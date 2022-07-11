@@ -4,6 +4,7 @@ import commons.AlphabetHelper;
 import commons.PeekIterator;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.stream.Stream;
@@ -74,15 +75,10 @@ public class Lexer {
                 continue;
             }
             if ((next == '+' || next == '-' || next == '.') && AlphabetHelper.isNumber(lookahead)) {
-                Token token = tokens.isEmpty()? null : tokens.get(tokens.size() - 1);
-                if (token == null || (!token.isNumber() && token.isOperator()&& !token.isVariable()) || token.isBracket()) {
+                Token token = tokens.isEmpty() ? null : tokens.get(tokens.size() - 1);
+                if (token == null || !token.isValue()) {
                     iterator.putBack();
                     tokens.add(Token.makeNumber(iterator));
-                    continue;
-                }else{
-                    iterator.putBack();
-                    Token op = Token.makeOp(iterator);
-                    tokens.add(op);
                     continue;
                 }
             }
@@ -97,12 +93,13 @@ public class Lexer {
     }
 
     public ArrayList<Token> analyse(Stream source) throws LexicalException {
-        var it = new PeekIterator<Character>(source, (char)0);
+        var it = new PeekIterator<Character>(source, (char) 0);
         return this.analyse(it);
     }
 
     /**
      * 从源代码文件加载并解析
+     *
      * @param src
      * @return
      * @throws FileNotFoundException
@@ -112,7 +109,7 @@ public class Lexer {
     public static ArrayList<Token> fromFile(String src) throws FileNotFoundException, UnsupportedEncodingException, LexicalException {
         var file = new File(src);
         var fileStream = new FileInputStream(file);
-        var inputStreamReader = new InputStreamReader(fileStream, "UTF-8");
+        var inputStreamReader = new InputStreamReader(fileStream, StandardCharsets.UTF_8);
 
         var br = new BufferedReader(inputStreamReader);
 
@@ -125,11 +122,12 @@ public class Lexer {
             private int cursor = 0;
 
             private void readLine() throws IOException {
-                if(line == null || cursor == line.length()) {
+                if (line == null || cursor == line.length()) {
                     line = br.readLine();
                     cursor = 0;
                 }
             }
+
             @Override
             public boolean hasNext() {
                 try {
@@ -144,7 +142,7 @@ public class Lexer {
             public Character next() {
                 try {
                     readLine();
-                    return line != null ? line.charAt(cursor++) :null;
+                    return line != null ? line.charAt(cursor++) : null;
                 } catch (IOException e) {
                     return null;
                 }

@@ -12,7 +12,7 @@ import paser.util.PeekTokenIterator;
  **/
 public class FunctionDefineStmt extends Stmt {
     protected FunctionDefineStmt(ASTNode parent) {
-        super(parent, ASTNodeTypes.FUNCTION_DECLARE_STMT, "function");
+        super( ASTNodeTypes.FUNCTION_DECLARE_STMT, "function");
     }
 
     public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {

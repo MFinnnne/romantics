@@ -11,7 +11,7 @@ import paser.util.PeekTokenIterator;
  **/
 public class IfStmt extends Stmt {
     protected IfStmt(ASTNode parent) {
-        super(parent, ASTNodeTypes.IF_STMT, "if");
+        super( ASTNodeTypes.IF_STMT, "if");
     }
 
     public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {

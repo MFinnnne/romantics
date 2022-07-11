@@ -13,8 +13,8 @@ import java.util.List;
  **/
 public class Stmt extends ASTNode {
 
-    protected Stmt(ASTNode parent, ASTNodeTypes types, String label) {
-        super(parent, types, label);
+    protected Stmt(ASTNodeTypes types, String label) {
+        super(types, label);
     }
 
     public static ASTNode parseStmt(ASTNode parent, PeekTokenIterator it) throws ParseException {

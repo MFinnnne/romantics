@@ -12,7 +12,7 @@ import paser.util.PeekTokenIterator;
 public class CallStmt extends Stmt {
 
     protected CallStmt(ASTNode parent) {
-        super(parent, ASTNodeTypes.IF_STMT, "call");
+        super(ASTNodeTypes.IF_STMT, "call");
     }
 
     public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {

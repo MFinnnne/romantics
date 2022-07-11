@@ -11,7 +11,7 @@ import paser.util.PeekTokenIterator;
 public class ReturnStmt extends Stmt {
 
     protected ReturnStmt(ASTNode parent) {
-        super(parent,ASTNodeTypes.RETURN_STMT,"return");
+        super(ASTNodeTypes.RETURN_STMT,"return");
     }
 
     public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {

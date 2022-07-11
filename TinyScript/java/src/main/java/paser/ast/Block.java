@@ -10,7 +10,7 @@ import paser.util.PeekTokenIterator;
  **/
 public class Block extends Stmt {
     protected Block(ASTNode parent) {
-        super(parent, ASTNodeTypes.BLOCK, "block");
+        super(ASTNodeTypes.BLOCK, "block");
     }
 
     public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {

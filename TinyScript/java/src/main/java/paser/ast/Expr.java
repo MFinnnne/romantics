@@ -17,12 +17,12 @@ public class Expr extends ASTNode {
     private static PriorityTable table = new PriorityTable();
 
 
-    protected Expr(ASTNode parent) {
-        super(parent);
+    protected Expr() {
+        super();
     }
 
-    public Expr(ASTNode parent, ASTNodeTypes type, Token lexeme) {
-        super(parent);
+    public Expr( ASTNodeTypes type, Token lexeme) {
+        super();
         this.type = type;
         this.lexeme = lexeme;
         this.label = lexeme.getValue();
@@ -62,7 +62,7 @@ public class Expr extends ASTNode {
         } else if ("++".equals(value) || "--".equals(value) || "!".equals(value)) {
             var t = it.peek();
             it.nextMatch(value);
-            Expr unaryExpr = new Expr(parent, ASTNodeTypes.UNARY_EXPR, t);
+            Expr unaryExpr = new Expr(ASTNodeTypes.UNARY_EXPR, t);
             unaryExpr.addChild(E(unaryExpr, 0, it));
             return unaryExpr;
         }
@@ -95,7 +95,7 @@ public class Expr extends ASTNode {
         var value = token.getValue();
 
         if (table.get(k).contains(value)) {
-            Expr expr = new Expr(parent, ASTNodeTypes.BINARY_EXPR, it.nextMatch(value));
+            Expr expr = new Expr(ASTNodeTypes.BINARY_EXPR, it.nextMatch(value));
             expr.addChild(combine(parent, it,
                     () -> E(parent, k + 1, it),
                     () -> E_(parent, k, it)
@@ -115,7 +115,7 @@ public class Expr extends ASTNode {
         if (b == null) {
             return a;
         }
-        Expr expr = new Expr(parent, ASTNodeTypes.BINARY_EXPR, b.lexeme);
+        Expr expr = new Expr(ASTNodeTypes.BINARY_EXPR, b.lexeme);
         expr.addChild(a);
         expr.addChild(b.getChildren(0));
         return expr;

@@ -37,6 +37,10 @@ public class Token {
         return type == TokenType.VARIABLE;
     }
 
+    public boolean isValue() {
+        return this.isVariable() || this.isScalar();
+    }
+
     public boolean isScalar() {
         return type == TokenType.FLOAT || type == TokenType.INTEGER
                 || type == TokenType.STRING || type == TokenType.BOOLEAN;
@@ -46,7 +50,7 @@ public class Token {
         return this.value.equals("bool") || this.value.equals("int") || this.value.equals("float") || this.value.equals("void") || this.value.equals("string");
     }
 
-    public boolean isBracket(){
+    public boolean isBracket() {
         return this.type == TokenType.BRACKET;
     }
 

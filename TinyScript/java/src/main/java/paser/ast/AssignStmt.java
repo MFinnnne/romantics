@@ -10,12 +10,12 @@ import paser.util.PeekTokenIterator;
  * @date 2021/8/23 0:21
  **/
 public class AssignStmt extends Stmt {
-    protected AssignStmt(ASTNode parent) {
-        super(parent, ASTNodeTypes.ASSIGN_STMT, "assign");
+    protected AssignStmt() {
+        super(ASTNodeTypes.ASSIGN_STMT, "assign");
     }
 
     public static ASTNode parse(ASTNode parent, PeekTokenIterator it) throws ParseException {
-        AssignStmt assignStmt = new AssignStmt(parent);
+        AssignStmt assignStmt = new AssignStmt();
         Token tkn = it.peek();
         ASTNode factor = Factor.parse(parent, it);
         if (factor == null || tkn.isScalar()) {

@@ -11,7 +11,7 @@ import paser.util.PeekTokenIterator;
  **/
 public class Factor extends ASTNode {
     protected Factor(ASTNode parent, PeekTokenIterator it) {
-        super(parent);
+        super();
         Token next = it.next();
         TokenType type = next.getType();
         if (type == TokenType.VARIABLE) {

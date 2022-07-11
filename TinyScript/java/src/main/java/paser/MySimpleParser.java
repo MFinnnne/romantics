@@ -69,7 +69,7 @@ public class MySimpleParser {
         }
         if ("++".equals(value) || "--".equals(value) || "!".equals(value)) {
             it.next();
-            Expr expr = new Expr(null, ASTNodeTypes.UNARY_EXPR, new Token(TokenType.OPERATOR, value));
+            Expr expr = new Expr(ASTNodeTypes.UNARY_EXPR, new Token(TokenType.OPERATOR, value));
             expr.addChild(E(it, 0));
             return expr;
         }
@@ -82,7 +82,7 @@ public class MySimpleParser {
         String value = peek.getValue();
         if (TABLE.get(k).contains(value)) {
             it.next();
-            Expr expr = new Expr(null, ASTNodeTypes.BINARY_EXPR, new Token(TokenType.OPERATOR, value));
+            Expr expr = new Expr(ASTNodeTypes.BINARY_EXPR, new Token(TokenType.OPERATOR, value));
             expr.addChild(combine(it, () -> E(it, k + 1), () -> E_(it, k)));
             return expr;
         }
@@ -98,7 +98,7 @@ public class MySimpleParser {
         if (b == null) {
             return a;
         }
-        Expr expr = new Expr(null, ASTNodeTypes.BINARY_EXPR, b.getLexeme());
+        Expr expr = new Expr( ASTNodeTypes.BINARY_EXPR, b.getLexeme());
         expr.addChild(a);
         expr.addChild(b.getChildren(0));
         return expr;

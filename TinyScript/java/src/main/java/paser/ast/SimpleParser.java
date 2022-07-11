@@ -10,7 +10,7 @@ import paser.util.PeekTokenIterator;
  **/
 public class SimpleParser {
     public static  ASTNode parse(PeekTokenIterator it) throws ParseException {
-        Expr expr = new Expr(null);
+        Expr expr = new Expr();
         Scalar scalar = new Scalar(expr,it);
         if (!it.hasNext()){
             return scalar;
