@@ -3,7 +3,7 @@
  * @Date: 2021-06-29 01:06:03
  * @LastEditTime: 2021-06-29 01:06:27
  * @LastEditors: MFine
- * @Description: 
+ * @Description:
  */
 import Token from "./Token";
 import PeekIterator from "../commons/PeekIterator";
@@ -90,14 +90,13 @@ export default class Lexer {
                 if (end == null || !end.isValue()) {
                     it.putBack();
                     tokens.push(Token.makeNumber(it));
-                    continue
+                    continue;
                 }
             }
-
             if (AlphabetHelper.isOperator(next)) {
                 it.putBack();
                 tokens.push(Token.makeOp(it));
-                continue
+                continue;
             }
             throw new LexicalException(next);
         }

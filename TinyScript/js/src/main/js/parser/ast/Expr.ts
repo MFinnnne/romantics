@@ -8,8 +8,8 @@ import Factor from "./Factor";
 
 export default class Expr extends ASTNode {
 
-    constructor(parent: ASTNode | null) {
-        super(null, null);
+    constructor() {
+        super(null);
 
     }
 
@@ -107,7 +107,7 @@ export default class Expr extends ASTNode {
     }
 
     private static fromToken(type: ASTNodeTypes, token: Token): Expr {
-        const expr = new Expr(null);
+        const expr = new Expr();
         expr.label = token.value;
         expr.lexeme = token;
         expr.type = type;

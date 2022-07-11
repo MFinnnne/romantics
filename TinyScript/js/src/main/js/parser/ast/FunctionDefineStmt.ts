@@ -6,8 +6,6 @@ import ParseException from "../ParseException";
 import PeekTokenIterator from "../PeekTokenIterator";
 import FunctionArgs from "./FunctionArgs";
 import TokenType from "../../lexer/TokenType";
-import Token from "../../lexer/Token";
-import Block from "./Block";
 
 export default class FunctionDefineStmt extends Stmt {
 
@@ -76,5 +74,4 @@ export default class FunctionDefineStmt extends Stmt {
         functionDefineStmt.addChild(blockStmt);
         return functionDefineStmt;
     }
-
 }

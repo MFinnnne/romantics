@@ -34,7 +34,7 @@ export default class Token {
 
     isType() {
         let flag = false;
-        for (let tokenTypeKey in TokenType) {
+        for (const tokenTypeKey in TokenType) {
             if (tokenTypeKey == this._type + "") {
                 flag = true;
                 break;

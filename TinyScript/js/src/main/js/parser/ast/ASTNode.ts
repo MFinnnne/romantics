@@ -4,14 +4,12 @@ import Token from "../../lexer/Token";
 export default class ASTNode {
 
     private _children: ASTNode[] = []
-    protected parent: ASTNode | null;
     private _lexeme: Token | null = null;
     private _label: string | null | undefined;
     private _type: ASTNodeTypes | null | undefined;
 
 
     constructor(types?: ASTNodeTypes | null, label?: string | null) {
-        this.parent = null;
         this._label = label;
         this._type = types;
     }

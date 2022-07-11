@@ -1,5 +1,6 @@
 import ASTNode from "../ast/ASTNode";
 import ASTNodeTypes from "../ast/ASTNodeTypes";
+import LinkedList from "ts-linked-list";
 
 export default class ParserUtils {
     static toPostfixExpression(node: ASTNode | null): string | undefined {
@@ -21,5 +22,20 @@ export default class ParserUtils {
             default:
                 break;
         }
+    }
+
+    static toBFSString(root: ASTNode, max: number): string {
+        const queue: Array<ASTNode> = [];
+        const list: Array<string> = [];
+        queue.push(root);
+        let c = 0;
+        while (queue.length > 0 && c++ < max) {
+            const node = queue.shift();
+            if (node && node.label) {
+                list.push(node.label);
+                queue.push(...node.children)
+            }
+        }
+        return list.join(" ");
     }
 }
